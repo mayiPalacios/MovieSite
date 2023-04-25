@@ -13,3 +13,17 @@ export const getMovies = async () => {
     console.log(error);
   }
 };
+
+export const getFilterByCertification = async (
+  apiKey: string,
+  certification: string
+) => {
+  try {
+    const request = await get<ImovieResults>(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=${certification}`
+    );
+    return request;
+  } catch (error) {
+    console.log(error);
+  }
+};

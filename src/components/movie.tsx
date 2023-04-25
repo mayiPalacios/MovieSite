@@ -1,37 +1,63 @@
 "use client";
+import usePagination from "lastHomework/hooks/usePagination";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import {
   GET_MOVIE_FAILURE,
   GET_MOVIE_REQUEST,
 } from "lastHomework/redux/actionsMethods/getMovieAction";
 import { getMovies } from "lastHomework/utils/fetchMethod";
-import { Inter } from "next/font/google";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
-const inter = Inter({ subsets: ["latin"] });
+import Image from "next/image";
 
 const Movie = () => {
-  const [prueba, setPrueba] = useState<Imovie[]>();
+  const [movie, setMovie] = useState<Imovie[]>();
+  const {
+    currentPage,
+    setCurrentPage,
+    elementsPerPage,
+    indexOfLastElement,
+    indexOfFirtsElement,
+    handleNextPage,
+    handlePreviousPage,
+    pageNumbers,
+  } = usePagination(1, 8, movie?.length || 0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
+  const currentElement =
+    movie && movie.slice(indexOfFirtsElement, indexOfLastElement);
+
   useEffect(() => {
     const fetchMovie = async () => {
+      setIsLoading(true);
       try {
         let response = await getMovies();
-        setPrueba(response?.data.results);
+        setMovie(response?.data.results);
       } catch (error) {
         if (error instanceof Error) {
+          setError(error);
         }
+        setIsLoading(false);
       }
     };
     fetchMovie();
-  }, [prueba]);
+  }, [movie]);
 
-  if (prueba && prueba) {
-    console.log(prueba);
-  } else {
-    console.log("No se encontraron resultados");
-  }
+  const renderPageNumbers = pageNumbers.map((number) => {
+    return (
+      <button
+        className={`pagination_btn page-item number__btn ${
+          number === currentPage ? "activeBtn" : ""
+        }`}
+        key={number}
+        onClick={() => {
+          setCurrentPage(number);
+        }}
+      >
+        {number}
+      </button>
+    );
+  });
 
   return (
     <div>
@@ -47,160 +73,100 @@ const Movie = () => {
         <h2 className="position-absolute text-center text-whites">Movies</h2>
       </section>
 
-      <main className="mt-5">
+      <main className="container__movies" style={{ margin: "12vw" }}>
+        <div className="container__filters flex-wrap d-flex justify-content-end align-items-center">
+          <div>
+            <input type="text" id="inpt__search--character" />
+          </div>
+
+          <select
+            className="form-select selt__btn"
+            aria-label="Default select example"
+          >
+            <option selected>Certification</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select
+            className="form-select selt__btn"
+            aria-label="Default select example"
+          >
+            <option selected>Genres</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select
+            className="form-select selt__btn"
+            aria-label="Default select example"
+          >
+            <option selected>Release Year</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+
         <section>
-          <div className="d-flex justify-content-center">
-            <div
-              className="card mx-3 h-25"
-              style={{
-                width: "18rem",
-                backgroundColor: "black",
-                color: "#e4d804",
-              }}
-            >
-              <a href="#">
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XOTCJN6NQJGHDAMZ5KJRWVMVY4.jpg"
-                  className="card-img-top"
-                  alt="..."
-                />
-              </a>
-              <div className="card-body ">
-                <div className="top">
-                  <h5 className="title">
-                    <a
-                      style={{ textDecoration: "none", color: "#fff" }}
-                      href="movie-details.html"
-                    >
-                      Mario Bros
-                    </a>
-                  </h5>
-                  <span className="date">2023</span>
+          <div className="row justify-content-center">
+            {currentElement?.map((item) => (
+              <div className="col-6 col-md-3 mb-3">
+                <div
+                  className="card mx-1 h-25"
+                  style={{
+                    width: "100%",
+                    backgroundColor: "black",
+                    color: "#e4d804",
+                  }}
+                >
+                  <a href="#">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                      className="card-img-top"
+                      alt="..."
+                    />
+                  </a>
+                  <div className="card-body">
+                    <div className="top">
+                      <h5 className="title">
+                        <a
+                          style={{ textDecoration: "none", color: "#fff" }}
+                          href="movie-details.html"
+                        >
+                          {item.original_title}
+                        </a>
+                      </h5>
+                      <span className="date">{item.release_date}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div
-              className="card mx-3 h-25"
-              style={{
-                width: "18rem",
-                backgroundColor: "black",
-                color: "#e4d804",
-              }}
-            >
-              <a href="#">
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XOTCJN6NQJGHDAMZ5KJRWVMVY4.jpg"
-                  className="card-img-top"
-                  alt="..."
-                />
-              </a>
-              <div className="card-body ">
-                <div className="top">
-                  <h5 className="title">
-                    <a
-                      style={{ textDecoration: "none", color: "#fff" }}
-                      href="movie-details.html"
-                    >
-                      Mario Bros
-                    </a>
-                  </h5>
-                  <span className="date">2023</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="card mx-3 h-25"
-              style={{
-                width: "18rem",
-                backgroundColor: "black",
-                color: "#e4d804",
-              }}
-            >
-              <a href="#">
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XOTCJN6NQJGHDAMZ5KJRWVMVY4.jpg"
-                  className="card-img-top"
-                  alt="..."
-                />
-              </a>
-              <div className="card-body ">
-                <div className="top">
-                  <h5 className="title">
-                    <a
-                      style={{ textDecoration: "none", color: "#fff" }}
-                      href="movie-details.html"
-                    >
-                      Mario Bros
-                    </a>
-                  </h5>
-                  <span className="date">2023</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="card mx-3 h-25"
-              style={{
-                width: "18rem",
-                backgroundColor: "black",
-                color: "#e4d804",
-              }}
-            >
-              <a href="#">
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XOTCJN6NQJGHDAMZ5KJRWVMVY4.jpg"
-                  className="card-img-top"
-                  alt="..."
-                />
-              </a>
-              <div className="card-body ">
-                <div className="top">
-                  <h5 className="title">
-                    <a
-                      style={{ textDecoration: "none", color: "#fff" }}
-                      href="movie-details.html"
-                    >
-                      Mario Bros
-                    </a>
-                  </h5>
-                  <span className="date">2023</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="card mx-3 h-25"
-              style={{
-                width: "18rem",
-                backgroundColor: "black",
-                color: "#e4d804",
-              }}
-            >
-              <a href="#">
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XOTCJN6NQJGHDAMZ5KJRWVMVY4.jpg"
-                  className="card-img-top"
-                  alt="..."
-                />
-              </a>
-              <div className="card-body ">
-                <div className="top">
-                  <h5 className="title">
-                    <a
-                      style={{ textDecoration: "none", color: "#fff" }}
-                      href="movie-details.html"
-                    >
-                      Mario Bros
-                    </a>
-                  </h5>
-                  <span className="date">2023</span>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
+
+        <div className="container__pagination pagination">
+          {currentPage > 1 && (
+            <button
+              className="pagination_btn word__btn"
+              onClick={handlePreviousPage}
+            >
+              Previous
+            </button>
+          )}
+          <div className="container__pagination--btn ">{renderPageNumbers}</div>
+          {currentPage < pageNumbers.length && (
+            <button
+              className="pagination_btn word__btn"
+              onClick={handleNextPage}
+            >
+              Next
+            </button>
+          )}
+        </div>
       </main>
     </div>
   );

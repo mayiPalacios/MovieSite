@@ -1,0 +1,24 @@
+.pagination_btn {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+.word__btn {
+  padding: 10px 20px;
+}
+
+.number__btn {
+  padding: 10px 20px;
+}
+
+.pagination_btn:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: black;
+}
+
+.activeBtn {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: black;
+}
