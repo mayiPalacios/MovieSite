@@ -5,13 +5,18 @@ import {
   GET_MOVIE_FAILURE,
   GET_MOVIE_REQUEST,
 } from "lastHomework/redux/actionsMethods/getMovieAction";
-import { getMovies } from "lastHomework/utils/fetchMethod";
+import {
+  getFilterByCertification,
+  getMovies,
+} from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
+let cases = "";
 
 const Movie = () => {
   const [movie, setMovie] = useState<Imovie[]>();
+  const [certification, setCertification] = useState<string>();
   const {
     currentPage,
     setCurrentPage,
@@ -31,8 +36,20 @@ const Movie = () => {
     const fetchMovie = async () => {
       setIsLoading(true);
       try {
-        let response = await getMovies();
-        setMovie(response?.data.results);
+        let response = undefined;
+
+        switch (cases) {
+          case "":
+            response = await getMovies();
+            break;
+          case "certification":
+            response = await getFilterByCertification(certification!);
+            break;
+        }
+
+        if (response !== undefined) {
+          setMovie(response?.data.results);
+        }
       } catch (error) {
         if (error instanceof Error) {
           setError(error);
@@ -41,7 +58,7 @@ const Movie = () => {
       }
     };
     fetchMovie();
-  }, [movie]);
+  }, [movie, certification]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -59,6 +76,11 @@ const Movie = () => {
     );
   });
 
+  const handleCertification = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCertification(event.target.value);
+    cases = "certification";
+  };
+
   return (
     <div>
       <section className="nav-movie">
@@ -73,7 +95,10 @@ const Movie = () => {
         <h2 className="position-absolute text-center text-whites">Movies</h2>
       </section>
 
-      <main className="container__movies" style={{ margin: "12vw" }}>
+      <main
+        className="container__movies"
+        style={{ margin: "12vw", marginTop: "5vw" }}
+      >
         <div className="container__filters flex-wrap d-flex justify-content-end align-items-center">
           <div>
             <input type="text" id="inpt__search--character" />
@@ -82,11 +107,14 @@ const Movie = () => {
           <select
             className="form-select selt__btn"
             aria-label="Default select example"
+            onChange={handleCertification}
           >
             <option selected>Certification</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG3">PG3</option>
+            <option value="R">R</option>
+            <option value="NC-17">NC-17</option>
           </select>
 
           <select
