@@ -1,4 +1,3 @@
-import { Provider } from "react-redux";
 import "../styles/globals.scss";
 export const metadata = {
   title: "Create Next App",

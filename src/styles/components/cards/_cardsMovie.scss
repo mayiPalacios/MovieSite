@@ -4,3 +4,8 @@
   justify-content: space-between;
   margin-bottom: 15px;
 }
+
+.container__movies {
+  display: flex;
+  flex-direction: column;
+}

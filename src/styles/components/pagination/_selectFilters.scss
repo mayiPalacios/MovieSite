@@ -1,0 +1,39 @@
+.selt__btn {
+  padding: 11px 35px 11px 25px;
+  border: 2px solid #2d303d;
+  border-radius: 50px;
+  min-height: 44px;
+  width: 8vw;
+  background-color: transparent;
+  border-color: #2d303d;
+  color: #e3dfdf;
+
+  option {
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #e3dfdf;
+    background-color: #495057;
+  }
+}
+
+.container__filters {
+  display: flex;
+  gap: 12px;
+  margin-left: 25vw;
+  padding-bottom: 22px;
+}
+
+input {
+  height: 5vh;
+  width: 12vw;
+  border-top: none;
+  border-left: none;
+  border-radius: 50px;
+  border-right: none;
+  border-color: #fff;
+}

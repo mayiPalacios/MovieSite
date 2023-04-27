@@ -1,25 +1,20 @@
 "use client";
 import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
-import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import {
-  GET_MOVIE_FAILURE,
-  GET_MOVIE_REQUEST,
-} from "lastHomework/redux/actionsMethods/getMovieAction";
-import {
-  getFilterByCertification,
-  getMovieGenres,
-  getMovieYear,
-  getMovies,
-  getSearchElement,
+  getFilterByCertificationTv,
+  getSearchTv,
+  getTvGenres,
+  getTvShow,
+  getTvYear,
 } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import Image from "next/image";
+import { ItvShow } from "lastHomework/interfaces/InterfacesTvShow";
 let cases = "";
 
-const Movie = () => {
-  const [movie, setMovie] = useState<Imovie[]>();
+const TvShow = () => {
+  const [tv, setTv] = useState<ItvShow[]>([]);
   const [search, setSearch] = useState("");
   const [certification, setCertification] = useState<string>();
   const [genre, setGenre] = useState<string>("");
@@ -33,38 +28,36 @@ const Movie = () => {
     handleNextPage,
     handlePreviousPage,
     pageNumbers,
-  } = usePagination(1, 8, movie?.length || 0);
+  } = usePagination(1, 8, tv?.length || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
   const currentElement =
-    movie && movie.slice(indexOfFirtsElement, indexOfLastElement);
+    tv && tv.slice(indexOfFirtsElement, indexOfLastElement);
 
   useEffect(() => {
-    const fetchMovie = async () => {
+    const fetchTv = async () => {
       setIsLoading(true);
       try {
         let response = undefined;
-
+        let prueba;
         switch (cases) {
           case "":
-            response = await getMovies();
-            break;
-          case "certification":
-            response = await getFilterByCertification(certification!);
-            break;
-          case "genre":
-            response = await getMovieGenres(genre!);
+            response = await getTvShow();
             break;
           case "release":
-            response = await getMovieYear(release);
+            response = await getTvYear(release);
             break;
+          case "genre":
+            response = await getTvGenres(genre!);
+            break;
+
           case "title":
-            response = await getSearchElement(search);
+            response = await getSearchTv(search);
             break;
         }
 
         if (response !== undefined) {
-          setMovie(response?.data.results);
+          setTv(response?.data.results);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -73,8 +66,8 @@ const Movie = () => {
         setIsLoading(false);
       }
     };
-    fetchMovie();
-  }, [movie, certification, release, cases]);
+    fetchTv();
+  }, [tv, certification, release, cases]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -150,11 +143,12 @@ const Movie = () => {
             onChange={handleCertification}
           >
             <option selected>Certification</option>
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="PG3">PG3</option>
-            <option value="R">R</option>
-            <option value="NC-17">NC-17</option>
+            <option value="TV-Y">TV-Y</option>
+            <option value="TV-Y7">TV-Y7</option>
+            <option value="TV-G">TV-G</option>
+            <option value="TV-PG">TV-PG</option>
+            <option value="TV-MA">TV-MA</option>
+            <option value="TV-14">TV-14</option>
           </select>
 
           <select
@@ -163,16 +157,16 @@ const Movie = () => {
             onChange={handleGenres}
           >
             <option selected>Genres</option>
-            <option value="28">Action</option>
-            <option value="12">Adventure</option>
+            <option value="10759">Action && Adventure</option>
+            <option value="9648">Mystery</option>
             <option value="16">Animation</option>
             <option value="35">Comedy</option>
             <option value="80">Crime</option>
             <option value="99">Documentary</option>
             <option value="18">Drama</option>
             <option value="10751">Family</option>
-            <option value="14">Fantasy</option>
-            <option value="36">History</option>
+            <option value="10765">Sci-Fi & Fantasy</option>
+            <option value="10762">Kids</option>
           </select>
 
           <select
@@ -220,10 +214,10 @@ const Movie = () => {
                           style={{ textDecoration: "none", color: "#fff" }}
                           href="movie-details.html"
                         >
-                          {item.original_title}
+                          {item.name}
                         </a>
                       </h5>
-                      <span className="date">{item.release_date}</span>
+                      <span className="date">{item.first_air_date}</span>
                     </div>
                   </div>
                 </div>
@@ -256,4 +250,4 @@ const Movie = () => {
   );
 };
 
-export default Movie;
+export default TvShow;

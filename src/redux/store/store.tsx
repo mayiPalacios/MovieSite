@@ -1,23 +1,19 @@
+"use client";
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../counter/counterSlice";
 import { createStore, compose } from "redux";
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import { persistStore } from "redux-persist";
 import Reducers from "../useRedux";
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
+export const store = configureStore({
+  reducer: {
+    reducers: Reducers,
+  },
+});
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
+export const persistor = persistStore(store);
 
-const persistedReducer = persistReducer(persistConfig, Reducers);
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(persistedReducer, composeEnhancers());
-const persistor = persistStore(store);
-
-export { store, persistor };
+export type RootState = ReturnType<typeof store.getState>;
+export type dispatch = typeof store.dispatch;

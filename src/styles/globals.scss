@@ -1,7 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./components/navbar";
 @import "./components//cards/cardsMovie";
-@import "./components/cards/footer";
+@import "./footer";
+@import "./components/pagination/pagination";
+@import "./components/pagination/selectFilters";
+@import "./components/details/cardDetail";
 
 body {
   background-color: black;
