@@ -9,11 +9,16 @@ export interface Icast {
   character: string;
 }
 
-export interface Crew {
+export interface Icrew {
   id: number;
   name: string;
   original_name: string;
   profile_path: string | null;
   department: string;
   job: string;
+}
+
+export interface Icredits {
+  cast: Icast[];
+  crew: Icrew[];
 }
