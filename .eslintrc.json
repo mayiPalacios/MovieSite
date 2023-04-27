@@ -23,10 +23,10 @@
         "extensions": [".tsx"]
       }
     ],
-    "import/extensions": "off",
-    "import/no-unresolved": "off",
-    "no-use-before-define": "off",
+    "import/extensions": "on",
+    "import/no-unresolved": "on",
+    "no-use-before-define": 1,
     "@typescript-eslint/no-use-before-define": ["error"],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "on"
   }
 }
