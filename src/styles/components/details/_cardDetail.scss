@@ -1,4 +1,105 @@
 .container__card--detail {
   background-image: url("https://themebeyond.com/html/movflx/img/bg/movie_details_bg.jpg");
-  height: 100vh;
+  min-height: 80vh;
+  height: auto;
+  padding-bottom: 2vh;
+  width: 100%;
+}
+
+.container__details {
+  height: 100%;
+}
+
+.movie-details-img {
+  position: relative;
+}
+
+.movie-details-area {
+  background-position: top center;
+  background-size: cover;
+  padding-top: 105px;
+}
+
+.movie-details-content {
+  margin-left: 23px;
+}
+
+.movie-details-content h2 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  margin-top: 0px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: normal;
+}
+
+.banner-meta ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  margin-right: 18px;
+}
+
+.banner-meta ul li span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e3dfdf;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+  color: #bcbcbc;
+  margin-bottom: 15px;
+}
+
+.container__overview {
+  width: 30vw;
+}
+
+.container__detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container__properties {
+  padding-top: 8vh;
+  padding-left: 2vw;
+}
+
+.movie-details-img {
+  img {
+    padding-left: 12px;
+  }
+}
+
+@media (max-width: 805px) {
+  .container__detail {
+    display: block;
+  }
+  .container__card--detail {
+    color: red;
+  }
+
+  .container__overview {
+    margin-left: 30px;
+    width: 50%;
+  }
+  .movie-details-img {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }

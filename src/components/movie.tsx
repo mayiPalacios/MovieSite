@@ -2,10 +2,7 @@
 import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
-import {
-  GET_MOVIE_FAILURE,
-  GET_MOVIE_REQUEST,
-} from "lastHomework/redux/actionsMethods/getMovieAction";
+
 import {
   getFilterByCertification,
   getMovieGenres,
@@ -206,7 +203,7 @@ const Movie = () => {
                     color: "#e4d804",
                   }}
                 >
-                  <a href="#">
+                  <a href={`details/${item.id}`}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                       className="card-img-top"
