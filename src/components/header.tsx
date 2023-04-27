@@ -39,13 +39,13 @@ const Header = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="/movie">
                 Movies
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                About
+              <a className="nav-link" href="/TV">
+                TV-SHOW
               </a>
             </li>
           </ul>
