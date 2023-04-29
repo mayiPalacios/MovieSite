@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import $ from "jquery";
+import { AuthContext } from "lastHomework/contexts/AuthContext";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
@@ -10,6 +11,9 @@ const Header = () => {
       setShowNav(!showNav);
     });
   }, [showNav]);
+
+  const { isLoggedIn } = useContext(AuthContext);
+  console.log(isLoggedIn);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
@@ -49,14 +53,23 @@ const Header = () => {
               </a>
             </li>
           </ul>
-          <div className="navbar-nav">
-            <a className="nav-link" href="#">
-              Sign up
-            </a>
-            <a className="nav-link" href="#">
-              Log in
-            </a>
-          </div>
+          {!isLoggedIn && (
+            <div className="navbar-nav">
+              <a className="nav-link" href="#">
+                Sign up
+              </a>
+              <a className="nav-link" href="/login">
+                Log in
+              </a>
+            </div>
+          )}
+          {isLoggedIn && (
+            <div className="navbar-nav">
+              <a className="nav-link" href="/login">
+                Logout
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </nav>

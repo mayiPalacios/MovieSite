@@ -2,7 +2,7 @@
 import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   getFilterByCertification,
   getMovieGenres,

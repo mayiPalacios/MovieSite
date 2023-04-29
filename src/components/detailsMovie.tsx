@@ -1,6 +1,7 @@
 "use client";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import usePagination from "lastHomework/hooks/usePagination";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import {
   getDetailMovie,
   getSimilarMovies,
@@ -53,6 +54,10 @@ const DetailsMovie = (props: Props) => {
     fetchDetail();
   }, []);
 
+  const handleIdElement = () => {
+    console.log(detailMovie?.id);
+  };
+
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
       <button
@@ -85,10 +90,12 @@ const DetailsMovie = (props: Props) => {
               <h2>{detailMovie?.title}</h2>
               <div className="banner-meta">
                 <ul className=" d-flex flex-wrap gap-1">
-                  <li className="popularity">{detailMovie?.popularity}</li>
+                  <li className="popularity">
+                    <span>Populatiry: {detailMovie?.popularity}</span>
+                  </li>
                   <li className=" gap-1">
                     {detailMovie?.genres?.map((genres) => (
-                      <span>{genres.name}</span>
+                      <span key={genres.id}>{genres.name}</span>
                     ))}
                   </li>
                   <li className=" gap-1">
@@ -106,6 +113,13 @@ const DetailsMovie = (props: Props) => {
               <div className="container__overview">
                 <p>{detailMovie?.overview}</p>
               </div>
+              <button className="btn__save--element" onClick={handleIdElement}>
+                <FontAwesomeIcon
+                  icon={faBookmark}
+                  style={{ height: "10vh", width: "3vw" }}
+                  color="#ffc107"
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -124,7 +138,7 @@ const DetailsMovie = (props: Props) => {
         </>
         <div className="row justify-content-center">
           {currentElement?.map((item) => (
-            <div className="col-6 col-md-3 mb-3">
+            <div key={item.id} className="col-6 col-md-3 mb-3">
               <div
                 className="card mx-1 h-25"
                 style={{
