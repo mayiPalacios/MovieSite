@@ -2,9 +2,9 @@ import usePagination from "lastHomework/hooks/usePagination";
 import { Icredits } from "lastHomework/interfaces/InterfacesCredits";
 import { getCredits } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
-import { Props } from "../detailsMovie";
+import { Props } from "../detailsTv";
 
-const PaginationDMovie = (props: Props) => {
+const PaginationDTVCast = (props: Props) => {
   const [credits, setCredits] = useState<Icredits>();
   const {
     currentPage,
@@ -24,8 +24,8 @@ const PaginationDMovie = (props: Props) => {
     const fetchDetail = async () => {
       try {
         let reqCredits = await getCredits(
-          props.detailsId,
-          "https://api.themoviedb.org/3/movie/"
+          props.detailsTvId,
+          "https://api.themoviedb.org/3/tv/"
         );
         setCredits(reqCredits.data);
       } catch (error) {}
@@ -117,4 +117,4 @@ const PaginationDMovie = (props: Props) => {
   );
 };
 
-export default PaginationDMovie;
+export default PaginationDTVCast;

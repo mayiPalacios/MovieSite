@@ -1,7 +1,7 @@
 export interface ItvShow {
   backdrop_path: string;
   first_air_date: string;
-  genre_ids: number[];
+  genres?: [{ id: number; name: string }];
   id: number;
   name: string;
   origin_country: string[];
@@ -12,9 +12,22 @@ export interface ItvShow {
   poster_path: string;
   vote_average: number;
   vote_count: number;
+  number_of_seasons: number;
 }
 
 export interface ItvShowResults {
   page: number;
   results: ItvShow[];
+}
+
+export interface Iepisodies {
+  air_date: string;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+}
+
+export interface IepisodiesList {
+  episodes: Iepisodies[];
 }
