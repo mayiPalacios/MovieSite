@@ -16,13 +16,13 @@ let cases = "";
 const Movie = () => {
   const [movie, setMovie] = useState<Imovie[]>();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState("1");
   const [certification, setCertification] = useState<string>();
   const [genre, setGenre] = useState<string>("");
   const [release, setRelease] = useState<string>("");
   const {
     currentPage,
     setCurrentPage,
-    elementsPerPage,
     indexOfLastElement,
     indexOfFirtsElement,
     handleNextPage,
@@ -42,7 +42,7 @@ const Movie = () => {
 
         switch (cases) {
           case "":
-            response = await getMovies();
+            response = await getMovies(page);
             break;
           case "certification":
             response = await getFilterByCertification(certification!);
@@ -112,6 +112,10 @@ const Movie = () => {
     }
   }, 1000);
 
+  const handlePage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPage(event.target.value);
+  };
+
   return (
     <div>
       <section className="nav-movie">
@@ -133,9 +137,12 @@ const Movie = () => {
         <div className="container__filters flex-wrap d-flex justify-content-end align-items-center">
           <div>
             <input
-              type="text"
-              id="inpt__search--character"
-              onChange={handleSearchBytitle}
+              type="number"
+              min={1}
+              max={500}
+              placeholder="page number"
+              style={{ textAlign: "center" }}
+              onChange={handlePage}
             />
           </div>
 

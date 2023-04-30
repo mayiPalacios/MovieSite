@@ -2,7 +2,6 @@
 import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
 import {
-  getFilterByCertificationTv,
   getSearchTv,
   getTvGenres,
   getTvShow,
@@ -18,6 +17,7 @@ const TvShow = () => {
   const [search, setSearch] = useState("");
   const [certification, setCertification] = useState<string>();
   const [genre, setGenre] = useState<string>("");
+  const [page, setPage] = useState("1");
   const [release, setRelease] = useState<string>("");
   const {
     currentPage,
@@ -42,7 +42,7 @@ const TvShow = () => {
         let prueba;
         switch (cases) {
           case "":
-            response = await getTvShow();
+            response = await getTvShow(page);
             break;
           case "release":
             response = await getTvYear(release);
@@ -110,6 +110,10 @@ const TvShow = () => {
     }
   }, 1000);
 
+  const handlePage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPage(event.target.value);
+  };
+
   return (
     <div>
       <section className="nav-movie">
@@ -131,9 +135,12 @@ const TvShow = () => {
         <div className="container__filters flex-wrap d-flex justify-content-end align-items-center">
           <div>
             <input
-              type="text"
-              id="inpt__search--character"
-              onChange={handleSearchBytitle}
+              type="number"
+              min={1}
+              max={500}
+              placeholder="page number"
+              style={{ textAlign: "center" }}
+              onChange={handlePage}
             />
           </div>
 
@@ -200,7 +207,7 @@ const TvShow = () => {
                     color: "#e4d804",
                   }}
                 >
-                  <a href="#">
+                  <a href={`detailsTV/${item.id}`}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                       className="card-img-top"

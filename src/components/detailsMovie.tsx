@@ -12,12 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import {
-  Icast,
-  Icredits,
-  Icrew,
-} from "lastHomework/interfaces/InterfacesCredits";
-import { getCredits } from "lastHomework/utils/fetchMethod";
 import PaginationDMovie from "./pagination/paginationDetailMovieCast";
 import PaginationDMovieCrew from "./pagination/paginationDetailMovieCrew";
 import {

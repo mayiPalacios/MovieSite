@@ -2,9 +2,9 @@ import usePagination from "lastHomework/hooks/usePagination";
 import { Icredits } from "lastHomework/interfaces/InterfacesCredits";
 import { getCredits } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
-import { Props } from "../detailsMovie";
+import { Props } from "../detailsTv";
 
-const PaginationDMovie = (props: Props) => {
+const PaginationDTvCrew = (props: Props) => {
   const [credits, setCredits] = useState<Icredits>();
   const {
     currentPage,
@@ -17,14 +17,14 @@ const PaginationDMovie = (props: Props) => {
     pageNumbers,
   } = usePagination(1, 4, credits?.cast?.length || 0);
   const currentElement =
-    credits?.cast &&
-    credits?.cast.slice(indexOfFirtsElement, indexOfLastElement);
+    credits?.crew &&
+    credits?.crew.slice(indexOfFirtsElement, indexOfLastElement);
 
   useEffect(() => {
     const fetchDetail = async () => {
       try {
         let reqCredits = await getCredits(
-          props.detailsId,
+          props.detailsTvId,
           "https://api.themoviedb.org/3/movie/"
         );
         setCredits(reqCredits.data);
@@ -55,11 +55,11 @@ const PaginationDMovie = (props: Props) => {
       style={{ margin: "12vw", marginTop: "5vw" }}
     >
       <>
-        <h2>Cast</h2>
+        <h2>Crew</h2>
       </>
       <div className="row justify-content-center">
-        {currentElement?.map((item) => (
-          <div key={item.id} className="col-6 col-md-3 mb-3">
+        {currentElement?.map((item, index) => (
+          <div key={index} className="col-6 col-md-3 mb-3">
             <div
               className="card mx-1 h-25"
               style={{
@@ -90,7 +90,7 @@ const PaginationDMovie = (props: Props) => {
                       {item.original_name}
                     </a>
                   </h5>
-                  <span className="date">{item.character}</span>
+                  <span className="date">{item.job}</span>
                 </div>
               </div>
             </div>
@@ -117,4 +117,4 @@ const PaginationDMovie = (props: Props) => {
   );
 };
 
-export default PaginationDMovie;
+export default PaginationDTvCrew;
