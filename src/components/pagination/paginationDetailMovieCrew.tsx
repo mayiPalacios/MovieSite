@@ -23,7 +23,10 @@ const PaginationDMovieCrew = (props: Props) => {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        let reqCredits = await getCredits(props.detailsId);
+        let reqCredits = await getCredits(
+          props.detailsId,
+          "https://api.themoviedb.org/3/movie/"
+        );
         setCredits(reqCredits.data);
       } catch (error) {}
     };

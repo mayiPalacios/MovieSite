@@ -2,6 +2,7 @@
 import { Imovie, ImovieResults } from "lastHomework/interfaces/InterfacesMovie";
 import { get, post } from "./fetchInfo";
 import {
+  IepisodiesList,
   ItvShow,
   ItvShowResults,
 } from "lastHomework/interfaces/InterfacesTvShow";
@@ -15,10 +16,10 @@ const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
 const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
 const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
 
-export const getMovies = async () => {
+export const getMovies = async (page: string) => {
   try {
     const request = await get<ImovieResults>(
-      "https://api.themoviedb.org/3/movie/popular?api_key=2c2a51168da517ee7a6b21e5a0f35561"
+      `https://api.themoviedb.org/3/movie/popular?api_key=2c2a51168da517ee7a6b21e5a0f35561&page=${page}`
     );
 
     return request;
@@ -72,9 +73,9 @@ export const getSearchElement = async (searchElement: string) => {
 };
 /* */
 
-export const getTvShow = async () => {
+export const getTvShow = async (page: string) => {
   const req = await get<ItvShowResults>(
-    "https://api.themoviedb.org/3/tv/popular?api_key=2c2a51168da517ee7a6b21e5a0f35561"
+    `https://api.themoviedb.org/3/tv/popular?api_key=2c2a51168da517ee7a6b21e5a0f35561&page=${page}`
   );
 
   return req;
@@ -122,9 +123,9 @@ export const getSimilarMovies = async (idDetailMovie: number) => {
   return req.data.results;
 };
 
-export const getCredits = async (idDetailMovie: number) => {
+export const getCredits = async (idDetailMovie: number, urlCredit: string) => {
   const req = await get<Icredits>(
-    `https://api.themoviedb.org/3/movie/${idDetailMovie}/credits?api_key=2c2a51168da517ee7a6b21e5a0f35561`
+    `${urlCredit}${idDetailMovie}/credits?api_key=2c2a51168da517ee7a6b21e5a0f35561`
   );
   return req;
 };
@@ -134,6 +135,27 @@ export const getFavorite = async (accountId: string, sessionID: string) => {
     `https://api.themoviedb.org/3/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionID}`
   );
 
+  return req.data;
+};
+
+export const getDetailTvShow = async (idDetailTv: number) => {
+  const req = await get<ItvShow>(
+    `https://api.themoviedb.org/3/tv/${idDetailTv}?api_key=2c2a51168da517ee7a6b21e5a0f35561`
+  );
+  return req;
+};
+
+export const getSimilarTvShow = async (idDetailTv: number) => {
+  const req = await get<ItvShowResults>(
+    `https://api.themoviedb.org/3/tv/${idDetailTv}/similar?api_key=2c2a51168da517ee7a6b21e5a0f35561`
+  );
+  return req.data.results;
+};
+
+export const getSeason = async (idDetailTv: number, seasonNumber: string) => {
+  const req = await get<IepisodiesList>(
+    `https://api.themoviedb.org/3/tv/${idDetailTv}/season/${seasonNumber}?api_key=2c2a51168da517ee7a6b21e5a0f35561`
+  );
   return req.data;
 };
 
