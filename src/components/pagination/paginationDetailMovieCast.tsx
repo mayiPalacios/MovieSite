@@ -56,7 +56,7 @@ const PaginationDMovie = (props: Props) => {
       </>
       <div className="row justify-content-center">
         {currentElement?.map((item) => (
-          <div className="col-6 col-md-3 mb-3">
+          <div key={item.id} className="col-6 col-md-3 mb-3">
             <div
               className="card mx-1 h-25"
               style={{

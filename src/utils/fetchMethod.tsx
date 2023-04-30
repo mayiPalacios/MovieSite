@@ -1,12 +1,16 @@
 "use client";
 import { Imovie, ImovieResults } from "lastHomework/interfaces/InterfacesMovie";
-import { get } from "./fetchInfo";
+import { get, post } from "./fetchInfo";
 import {
   ItvShow,
   ItvShowResults,
 } from "lastHomework/interfaces/InterfacesTvShow";
 import { Props } from "lastHomework/components/detailsMovie";
 import { Icast, Icredits } from "lastHomework/interfaces/InterfacesCredits";
+import {
+  Ifavorite,
+  IsuccessFavorite,
+} from "lastHomework/interfaces/InterfacesFavorite";
 const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
 const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
 const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
@@ -124,3 +128,28 @@ export const getCredits = async (idDetailMovie: number) => {
   );
   return req;
 };
+
+export const getFavorite = async (accountId: string, sessionID: string) => {
+  const req = await get<ImovieResults>(
+    `https://api.themoviedb.org/3/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionID}`
+  );
+
+  return req.data;
+};
+
+export const postFavoriteM = async (
+  accountId: string,
+  sessionID: string,
+  dataRequest: Ifavorite
+) => {
+  const req = await post<IsuccessFavorite>(
+    `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=2c2a51168da517ee7a6b21e5a0f35561&session_id=${sessionID}`,
+    dataRequest
+  );
+  return req.data;
+};
+
+/*async function createUser(user: UserInput) {
+  const response = await post<UserData>("/api/user", user);
+  console.log(response.data);
+} */
