@@ -2,7 +2,6 @@
 import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   getFilterByCertification,
   getMovieGenres,
@@ -11,7 +10,6 @@ import {
   getSearchElement,
 } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import Image from "next/image";
 let cases = "";
 
