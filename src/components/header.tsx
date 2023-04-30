@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import $ from "jquery";
+import { AuthContext, AuthProvider } from "lastHomework/contexts/AuthContext";
+import useAuth from "lastHomework/hooks/useAuth";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
@@ -10,6 +12,10 @@ const Header = () => {
       setShowNav(!showNav);
     });
   }, [showNav]);
+
+  const isLoggedIn = useAuth();
+
+  console.log(isLoggedIn);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
@@ -48,15 +54,31 @@ const Header = () => {
                 TV-SHOW
               </a>
             </li>
+            {isLoggedIn && (
+              <li className="nav-item">
+                <a className="nav-link" href="/favorite">
+                  Favorite
+                </a>
+              </li>
+            )}
           </ul>
-          <div className="navbar-nav">
-            <a className="nav-link" href="#">
-              Sign up
-            </a>
-            <a className="nav-link" href="#">
-              Log in
-            </a>
-          </div>
+
+          {isLoggedIn ? (
+            <div className="navbar-nav">
+              <a className="nav-link" href="/login">
+                Logout
+              </a>
+            </div>
+          ) : (
+            <div className="navbar-nav">
+              <a className="nav-link" href="https://www.themoviedb.org/signup">
+                Sign up
+              </a>
+              <a className="nav-link" href="/login">
+                Log in
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </nav>
