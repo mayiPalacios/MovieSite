@@ -7,6 +7,8 @@ export interface Imovie {
   popularity: number;
   poster_path: string;
   release_date: string;
+  runtime: number;
+  genres?: [{ id: number; name: string }];
   title: string;
 }
 

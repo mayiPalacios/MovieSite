@@ -1,10 +1,12 @@
 "use client";
-import { ImovieResults } from "lastHomework/interfaces/InterfacesMovie";
+import { Imovie, ImovieResults } from "lastHomework/interfaces/InterfacesMovie";
 import { get } from "./fetchInfo";
 import {
   ItvShow,
   ItvShowResults,
 } from "lastHomework/interfaces/InterfacesTvShow";
+import { Props } from "lastHomework/components/detailsMovie";
+import { Icast, Icredits } from "lastHomework/interfaces/InterfacesCredits";
 const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
 const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
 const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
@@ -103,8 +105,22 @@ export const getFilterByCertificationTv = async (certification: string) => {
 };
 
 export const getDetailMovie = async (idDetailMovie: number) => {
-  const req = await get<ImovieResults>(
+  const req = await get<Imovie>(
     `https://api.themoviedb.org/3/movie/${idDetailMovie}?api_key=2c2a51168da517ee7a6b21e5a0f35561`
+  );
+  return req;
+};
+
+export const getSimilarMovies = async (idDetailMovie: number) => {
+  const req = await get<ImovieResults>(
+    `https://api.themoviedb.org/3/movie/${idDetailMovie}/similar?api_key=2c2a51168da517ee7a6b21e5a0f35561`
+  );
+  return req.data.results;
+};
+
+export const getCredits = async (idDetailMovie: number) => {
+  const req = await get<Icredits>(
+    `https://api.themoviedb.org/3/movie/${idDetailMovie}/credits?api_key=2c2a51168da517ee7a6b21e5a0f35561`
   );
   return req;
 };
