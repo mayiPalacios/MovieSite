@@ -2,9 +2,11 @@
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import usePagination from "lastHomework/hooks/usePagination";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import useAuth from "lastHomework/hooks/useAuth";
 import {
   getDetailMovie,
   getSimilarMovies,
+  postFavoriteM,
 } from "lastHomework/utils/fetchMethod";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +20,10 @@ import {
 import { getCredits } from "lastHomework/utils/fetchMethod";
 import PaginationDMovie from "./pagination/paginationDetailMovieCast";
 import PaginationDMovieCrew from "./pagination/paginationDetailMovieCrew";
+import {
+  Ifavorite,
+  IsuccessFavorite,
+} from "lastHomework/interfaces/InterfacesFavorite";
 
 export interface Props {
   detailsId: number;
@@ -26,6 +32,7 @@ export interface Props {
 const DetailsMovie = (props: Props) => {
   const [detailMovie, setDmovie] = useState<Imovie>();
   const [similar, setSimilar] = useState<Imovie[]>();
+  const [succesFav, setSuccesFav] = useState<boolean>(false);
 
   const {
     currentPage,
@@ -54,8 +61,23 @@ const DetailsMovie = (props: Props) => {
     fetchDetail();
   }, []);
 
-  const handleIdElement = () => {
+  const handleIdElement = async () => {
     console.log(detailMovie?.id);
+    const addFavMovie: Ifavorite = {
+      media_type: "movie",
+      media_id: detailMovie?.id!,
+      favorite: true,
+    };
+    const sessionID = localStorage.getItem("sessionId");
+    const account_id = localStorage.getItem("account_id");
+
+    const request: IsuccessFavorite = await postFavoriteM(
+      account_id!,
+      sessionID!,
+      addFavMovie
+    );
+    setSuccesFav(request.success);
+    console.log(succesFav);
   };
 
   const renderPageNumbers = pageNumbers.map((number) => {
@@ -73,6 +95,7 @@ const DetailsMovie = (props: Props) => {
       </button>
     );
   });
+  const isLoggedIn = useAuth();
 
   return (
     <div className="container__details">
@@ -113,13 +136,18 @@ const DetailsMovie = (props: Props) => {
               <div className="container__overview">
                 <p>{detailMovie?.overview}</p>
               </div>
-              <button className="btn__save--element" onClick={handleIdElement}>
-                <FontAwesomeIcon
-                  icon={faBookmark}
-                  style={{ height: "10vh", width: "3vw" }}
-                  color="#ffc107"
-                />
-              </button>
+              {isLoggedIn && (
+                <button
+                  className="btn__save--element"
+                  onClick={handleIdElement}
+                >
+                  <FontAwesomeIcon
+                    icon={faBookmark}
+                    style={{ height: "10vh", width: "3vw" }}
+                    color="#ffc107"
+                  />
+                </button>
+              )}
             </div>
           </div>
         </div>

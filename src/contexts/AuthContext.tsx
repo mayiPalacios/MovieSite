@@ -16,9 +16,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const session = sessionStorage.getItem("boolSessionId");
-    if (session === "true") {
+    const session = localStorage.getItem("boolSessionId");
+    if (session) {
       setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
     }
   }, []);
 

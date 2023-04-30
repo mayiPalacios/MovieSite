@@ -1,5 +1,5 @@
 "use client";
-
+import { redirect } from "next/navigation";
 import { AuthContext } from "lastHomework/contexts/AuthContext";
 import Router from "next/router";
 import { Isession } from "lastHomework/interfaces/Interfaceslog";
@@ -11,7 +11,8 @@ import {
 } from "lastHomework/utils/fetchService";
 
 import { useContext, useEffect, useState } from "react";
-
+import { IuserData } from "lastHomework/interfaces/Interfaceslog";
+import { useRouter } from "next/navigation";
 export interface IrequestTokenResponse {
   success: boolean;
   expires_at: string;
@@ -32,7 +33,7 @@ const LoginPage = () => {
   const [prueba, setPrueba] = useState();
   const [fail, setFail] = useState("");
   const [loading, setLoading] = useState<boolean>();
-
+  const router = useRouter();
   const { setLoggedIn } = useContext(AuthContext);
 
   const handleSubmit = async () => {
@@ -58,11 +59,13 @@ const LoginPage = () => {
         console.log("arriba");
         if (getSessionID.success == true) {
           localStorage.removeItem("sessionId");
-          const account_id = await getAccount_id(getSessionID.session_id);
+          const account_id: IuserData = await getAccount_id(
+            getSessionID.session_id
+          );
           console.log(account_id);
           localStorage.setItem("sessionId", getSessionID.session_id);
           localStorage.setItem("boolSessionId", "true");
-          localStorage.setItem("account_id", account_id);
+          localStorage.setItem("account_id", account_id.id.toString());
 
           funciono = true;
         } else {
@@ -78,7 +81,8 @@ const LoginPage = () => {
 
   const handleBtn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleSubmit();
+
+    router.push("/movie");
     /* console.log("Antes de la redirección");
     if (typeof window !== "undefined") {
       Router.push("/movie");

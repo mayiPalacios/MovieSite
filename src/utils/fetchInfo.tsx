@@ -22,3 +22,13 @@ export async function get<T>(
   const response = await http<T>(path, requestConfig);
   return response;
 }
+
+export async function post<T>(
+  path: string,
+  data: any,
+  config?: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+  const requestConfig: AxiosRequestConfig = { method: "post", data, ...config };
+  const response = await http<T>(path, requestConfig);
+  return response;
+}
