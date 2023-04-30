@@ -123,11 +123,11 @@ const DetailsMovie = (props: Props) => {
                   </li>
                   <li className=" gap-1">
                     <span>
-                      <FontAwesomeIcon icon={faCalendarDay} color="#ffc107" />{" "}
+                      <FontAwesomeIcon icon={faCalendarDay} color="#ffc107" />
                       {detailMovie?.release_date}
                     </span>
                     <span>
-                      <FontAwesomeIcon icon={faClock} color="#ffc107" />{" "}
+                      <FontAwesomeIcon icon={faClock} color="#ffc107" />
                       {detailMovie?.runtime} min
                     </span>
                   </li>
