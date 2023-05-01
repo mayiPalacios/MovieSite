@@ -4,7 +4,7 @@ import Footer from "lastHomework/components/footer";
 import { useRouter } from "next/router";
 import LoginPage from "lastHomework/components/login";
 
-const page: FC<PageProps> = ({}) => {
+const page = ({}) => {
   return (
     <>
       <LoginPage />
