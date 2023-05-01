@@ -1,12 +1,13 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import $ from "jquery";
-import { AuthContext, AuthProvider } from "lastHomework/contexts/AuthContext";
+
 import useAuth from "lastHomework/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     $(".navbar-toggler").click(function () {
       setShowNav(!showNav);
@@ -14,6 +15,9 @@ const Header = () => {
   }, [showNav]);
 
   const isLoggedIn = useAuth();
+  const handleNavigation = () => {
+    router.push("/favorite");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
@@ -54,7 +58,7 @@ const Header = () => {
             </li>
             {isLoggedIn && (
               <li className="nav-item">
-                <a className="nav-link" href="/favorite">
+                <a className="nav-link" onClick={handleNavigation}>
                   Favorite
                 </a>
               </li>

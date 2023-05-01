@@ -1,7 +1,5 @@
 "use client";
-import { redirect } from "next/navigation";
 import { AuthContext } from "lastHomework/contexts/AuthContext";
-import Router from "next/router";
 import { Isession } from "lastHomework/interfaces/Interfaceslog";
 import {
   getAccount_id,
@@ -28,13 +26,9 @@ let funciono = false;
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [username2, setUsername2] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [prueba, setPrueba] = useState();
   const [fail, setFail] = useState("");
   const [loading, setLoading] = useState<boolean>();
   const router = useRouter();
-  const { setLoggedIn } = useContext(AuthContext);
 
   const handleSubmit = async () => {
     try {
@@ -66,8 +60,7 @@ const LoginPage = () => {
           localStorage.setItem("sessionId", getSessionID.session_id);
           localStorage.setItem("boolSessionId", "true");
           localStorage.setItem("account_id", account_id.id.toString());
-
-          funciono = true;
+          router.push("/movie");
         } else {
           setFail("sorry fail to login");
         }
@@ -79,10 +72,13 @@ const LoginPage = () => {
     }
   };
 
-  const handleBtn = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleBtn = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
-    router.push("/movie");
+    handleSubmit();
+
     /* console.log("Antes de la redirección");
     if (typeof window !== "undefined") {
       Router.push("/movie");
@@ -113,7 +109,11 @@ const LoginPage = () => {
               />
             </div>
             <div className="btn">
-              <button className="btn-primary" type="submit" onClick={handleBtn}>
+              <button
+                className="btn-primary"
+                type="submit"
+                onClick={(e) => handleBtn(e)}
+              >
                 Sign In
               </button>
             </div>

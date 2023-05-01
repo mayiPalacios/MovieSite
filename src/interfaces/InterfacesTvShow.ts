@@ -19,15 +19,3 @@ export interface ItvShowResults {
   page: number;
   results: ItvShow[];
 }
-
-export interface Iepisodies {
-  air_date: string;
-  episode_number: number;
-  id: number;
-  name: string;
-  overview: string;
-}
-
-export interface IepisodiesList {
-  episodes: Iepisodies[];
-}
