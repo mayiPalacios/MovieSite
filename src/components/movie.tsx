@@ -140,7 +140,7 @@ const Movie = () => {
               type="number"
               min={1}
               max={500}
-              placeholder="page number"
+              placeholder="Page number"
               style={{ textAlign: "center" }}
               onChange={handlePage}
             />

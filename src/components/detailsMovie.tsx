@@ -8,7 +8,7 @@ import {
   getSimilarMovies,
   postFavoriteM,
 } from "lastHomework/utils/fetchMethod";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
@@ -18,6 +18,7 @@ import {
   Ifavorite,
   IsuccessFavorite,
 } from "lastHomework/interfaces/InterfacesFavorite";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface Props {
   detailsId: number;

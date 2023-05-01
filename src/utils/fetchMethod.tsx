@@ -2,7 +2,6 @@
 import { Imovie, ImovieResults } from "lastHomework/interfaces/InterfacesMovie";
 import { get, post } from "./fetchInfo";
 import {
-  IepisodiesList,
   ItvShow,
   ItvShowResults,
 } from "lastHomework/interfaces/InterfacesTvShow";
@@ -12,6 +11,7 @@ import {
   Ifavorite,
   IsuccessFavorite,
 } from "lastHomework/interfaces/InterfacesFavorite";
+import { IepisodiesList } from "lastHomework/interfaces/InterfacesSeason";
 const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
 const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
 const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
