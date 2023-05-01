@@ -14,10 +14,16 @@
   position: relative;
 }
 
-.movie-details-area {
+.movie__details--area {
   background-position: top center;
   background-size: cover;
   padding-top: 105px;
+}
+
+.episodies__details--area {
+  background-position: top center;
+  background-size: cover;
+  padding-top: 70px;
 }
 
 .movie-details-content {
