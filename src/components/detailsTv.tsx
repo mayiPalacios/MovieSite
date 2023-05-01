@@ -23,7 +23,7 @@ import {
 import { ItvShow } from "lastHomework/interfaces/InterfacesTvShow";
 import PaginationDTVCast from "./pagination/paginationDetailTVCast";
 import PaginationDTvCrew from "./pagination/paginationDetailTvCrew";
-
+import { useRouter } from "next/navigation";
 export interface Props {
   detailsTvId: number;
 }
@@ -32,6 +32,7 @@ const DetailsTv = (props: Props) => {
   const [detailTv, setDTv] = useState<ItvShow>();
   const [similar, setSimilar] = useState<ItvShow[]>();
   const [succesFav, setSuccesFav] = useState<boolean>(false);
+  const router = useRouter();
 
   const {
     currentPage,
@@ -95,7 +96,7 @@ const DetailsTv = (props: Props) => {
     );
   });
   const isLoggedIn = useAuth();
-  console.log(detailTv?.number_of_seasons);
+
   const seasons = Array.from(
     {
       length:
@@ -104,11 +105,15 @@ const DetailsTv = (props: Props) => {
           : 0,
     },
     (_, index) => (
-      <option key={index}>
-        <a href={`/${index + 1}`}>Season {index + 1}</a>
+      <option value={index + 1} key={index}>
+        Season {index + 1}
       </option>
     )
   );
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    router.push(`/season/${props.detailsTvId}/${event.target.value}`);
+  };
 
   return (
     <div className="container__details">
@@ -157,7 +162,11 @@ const DetailsTv = (props: Props) => {
                   />
                 </button>
               )}
-              <select className="form-select selt__btn" name="seasons">
+              <select
+                className="form-select selt__btn"
+                name="seasons"
+                onChange={handleSelectChange}
+              >
                 <option>Seasons</option>
                 {seasons}
               </select>
