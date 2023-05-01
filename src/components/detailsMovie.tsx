@@ -94,7 +94,7 @@ const DetailsMovie = (props: Props) => {
 
   return (
     <div className="container__details">
-      <section className="  container__card--detail movie-details-area">
+      <section className="  container__card--detail movie__details--area">
         <div className="container__detail">
           <div className=" ">
             <div className="movie-details-img ">
