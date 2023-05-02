@@ -71,7 +71,6 @@ const DetailsMovie = (props: Props) => {
       addFavMovie
     );
     setSuccesFav(request.success);
-    console.log(succesFav);
   };
 
   const renderPageNumbers = pageNumbers.map((number) => {
@@ -90,6 +89,27 @@ const DetailsMovie = (props: Props) => {
     );
   });
   const isLoggedIn = useAuth();
+
+  const handleSucces = () => {
+    setSuccesFav(false);
+  };
+
+  const AlertSave = () => {
+    return (
+      <div className="container__alert">
+        <div className="alert__content" id="cookiesPopup">
+          <img
+            src="https://i.pinimg.com/564x/2e/ea/95/2eea95d8eb44b2cece4c79a6fea25573.jpg"
+            alt="cookies-img"
+          />
+          <p>The movie is saved</p>
+          <button className="btn__accept" onClick={handleSucces}>
+            That's fine!
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="container__details">
@@ -126,6 +146,7 @@ const DetailsMovie = (props: Props) => {
                     </span>
                   </li>
                 </ul>
+                {succesFav && <AlertSave />}
               </div>
               <div className="container__overview">
                 <p>{detailMovie?.overview}</p>

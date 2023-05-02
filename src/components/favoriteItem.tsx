@@ -5,18 +5,10 @@ import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import {
-  getFavorite,
-  getFilterByCertification,
-  getMovieGenres,
-  getMovieYear,
-  getMovies,
-  getSearchElement,
-  removeFavorite,
-} from "lastHomework/utils/fetchMethod";
+import { getFavorite, removeFavorite } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Image from "next/image";
+
 import {
   Ifavorite,
   IsuccessFavorite,
@@ -102,23 +94,11 @@ const FavoriteItem = () => {
       addFavMovie
     );
     setRemoveFav(request.success);
-    console.log(RemoveFav);
   };
 
   return (
     <div>
       <div>
-        <section className="nav-movie">
-          <Image
-            width={1920}
-            height={500}
-            layout="responsive"
-            className="navbar__custom--IMG position-relative"
-            src="https://themebeyond.com/html/movflx/img/bg/breadcrumb_bg.jpg"
-            alt=""
-          />
-          <h2 className="position-absolute text-center text-whites">Movies</h2>
-        </section>
         <main
           className="container__movies"
           style={{ margin: "12vw", marginTop: "5vw" }}

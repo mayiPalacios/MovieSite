@@ -12,6 +12,10 @@ import {
   IsuccessFavorite,
 } from "lastHomework/interfaces/InterfacesFavorite";
 import { IepisodiesList } from "lastHomework/interfaces/InterfacesSeason";
+import {
+  Isearch,
+  IsearchResults,
+} from "lastHomework/interfaces/InterfacesSearch";
 const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
 const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
 const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
@@ -62,14 +66,11 @@ export const getMovieYear = async (year: string) => {
 };
 
 export const getSearchElement = async (searchElement: string) => {
-  try {
-    const req = await get<ImovieResults>(
-      `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${searchElement}`
-    );
-    return req;
-  } catch (error) {
-    console.log(error);
-  }
+  const req = await get<IsearchResults>(
+    `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${searchElement}`
+  );
+  console.log(req);
+  return req.data;
 };
 /* */
 

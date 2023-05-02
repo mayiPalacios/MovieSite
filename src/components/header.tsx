@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import $ from "jquery";
 
 import useAuth from "lastHomework/hooks/useAuth";
@@ -55,7 +55,7 @@ const Header = () => {
             </li>
 
             <li className="nav-item active">
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/search">
                 Search
               </a>
             </li>
@@ -86,7 +86,7 @@ const Header = () => {
               <a className="nav-link" onClick={handleLogout} href="/login">
                 Logout
               </a>
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/meDetails">
                 About-me
               </a>
             </div>

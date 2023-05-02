@@ -3,17 +3,27 @@ import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { getFavorite, getFavoriteTv } from "lastHomework/utils/fetchMethod";
+import {
+  getFavorite,
+  getFavoriteTv,
+  removeFavorite,
+} from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { ItvShow } from "lastHomework/interfaces/InterfacesTvShow";
+import {
+  Ifavorite,
+  IsuccessFavorite,
+} from "lastHomework/interfaces/InterfacesFavorite";
 
 let cases = "";
 
 const FavoriteTv = () => {
   const [tv, setTv] = useState<ItvShow[]>();
+  const [RemoveFav, setRemoveFav] = useState<boolean>(false);
   const [search, setSearch] = useState("");
   const [certification, setCertification] = useState<string>();
   const [genre, setGenre] = useState<string>("");
@@ -74,6 +84,23 @@ const FavoriteTv = () => {
     );
   });
 
+  const handleIdElement = async (idTv: number) => {
+    const addFavMovie: Ifavorite = {
+      media_type: "tv",
+      media_id: idTv!,
+      favorite: false,
+    };
+    const sessionID = localStorage.getItem("sessionId");
+    const account_id = localStorage.getItem("account_id");
+
+    const request: IsuccessFavorite = await removeFavorite(
+      account_id!,
+      sessionID!,
+      addFavMovie
+    );
+    setRemoveFav(request.success);
+  };
+
   return (
     <div>
       <div>
@@ -112,6 +139,16 @@ const FavoriteTv = () => {
                           </a>
                         </h5>
                         <span className="date">{item.first_air_date}</span>
+                        <button
+                          className="btn__save--element"
+                          onClick={() => handleIdElement(item.id)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faBookmark}
+                            style={{ height: "4.5vh", width: "2vw" }}
+                            color="#ffc107"
+                          />
+                        </button>
                       </div>
                     </div>
                   </div>
