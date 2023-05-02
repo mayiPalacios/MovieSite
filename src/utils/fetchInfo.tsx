@@ -23,9 +23,9 @@ export async function get<T>(
   return response;
 }
 
-export async function post<T>(
+export async function post<T, U>(
   path: string,
-  data: any,
+  data: U,
   config?: AxiosRequestConfig
 ): Promise<AxiosResponse<T>> {
   const requestConfig: AxiosRequestConfig = { method: "post", data, ...config };

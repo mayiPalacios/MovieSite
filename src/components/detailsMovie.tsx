@@ -57,7 +57,6 @@ const DetailsMovie = (props: Props) => {
   }, []);
 
   const handleIdElement = async () => {
-    console.log(detailMovie?.id);
     const addFavMovie: Ifavorite = {
       media_type: "movie",
       media_id: detailMovie?.id!,

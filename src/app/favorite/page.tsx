@@ -2,12 +2,12 @@
 
 import Footer from "lastHomework/components/footer";
 import Header from "lastHomework/components/header";
-import DetailsMovie from "lastHomework/components/detailsMovie";
 import { useRouter } from "next/navigation";
 import FavoriteItem from "lastHomework/components/favoriteItem";
 
 import useAuth from "lastHomework/hooks/useAuth";
 import { useEffect } from "react";
+import FavoriteTv from "lastHomework/components/favoriteTv";
 
 export default function Page({}) {
   const router = useRouter();
@@ -23,6 +23,7 @@ export default function Page({}) {
     <>
       <Header />
       <FavoriteItem />
+      <FavoriteTv />
       <Footer />
     </>
   );

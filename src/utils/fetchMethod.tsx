@@ -138,6 +138,14 @@ export const getFavorite = async (accountId: string, sessionID: string) => {
   return req.data;
 };
 
+export const getFavoriteTv = async (accountId: string, sessionID: string) => {
+  const req = await get<ItvShowResults>(
+    `https://api.themoviedb.org/3/account/${accountId}/favorite/tv?api_key=${apiKey}&session_id=${sessionID}`
+  );
+
+  return req.data;
+};
+
 export const getDetailTvShow = async (idDetailTv: number) => {
   const req = await get<ItvShow>(
     `https://api.themoviedb.org/3/tv/${idDetailTv}?api_key=2c2a51168da517ee7a6b21e5a0f35561`
@@ -164,14 +172,21 @@ export const postFavoriteM = async (
   sessionID: string,
   dataRequest: Ifavorite
 ) => {
-  const req = await post<IsuccessFavorite>(
+  const req = await post<IsuccessFavorite, Ifavorite>(
     `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=2c2a51168da517ee7a6b21e5a0f35561&session_id=${sessionID}`,
     dataRequest
   );
   return req.data;
 };
 
-/*async function createUser(user: UserInput) {
-  const response = await post<UserData>("/api/user", user);
-  console.log(response.data);
-} */
+export const removeFavorite = async (
+  accountId: string,
+  sessionID: string,
+  dataRequest: Ifavorite
+) => {
+  const req = await post<IsuccessFavorite, Ifavorite>(
+    `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=2c2a51168da517ee7a6b21e5a0f35561&session_id=${sessionID}`,
+    dataRequest
+  );
+  return req.data;
+};
