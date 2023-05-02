@@ -64,7 +64,7 @@ const DetailsTv = (props: Props) => {
   const handleIdElement = async () => {
     console.log(detailTv?.id);
     const addFavMovie: Ifavorite = {
-      media_type: "movie",
+      media_type: "tv",
       media_id: detailTv?.id!,
       favorite: true,
     };
@@ -115,6 +115,27 @@ const DetailsTv = (props: Props) => {
     router.push(`/season/${props.detailsTvId}/${event.target.value}`);
   };
 
+  const handleSucces = () => {
+    setSuccesFav(false);
+  };
+
+  const AlertSave = () => {
+    return (
+      <div className="container__alert">
+        <div className="alert__content" id="cookiesPopup">
+          <img
+            src="https://i.pinimg.com/564x/2e/ea/95/2eea95d8eb44b2cece4c79a6fea25573.jpg"
+            alt="cookies-img"
+          />
+          <p>The tv show is saved</p>
+          <button className="btn__accept" onClick={handleSucces}>
+            That's fine!
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="container__details">
       <section className="  container__card--detail movie__details--area">
@@ -146,30 +167,34 @@ const DetailsTv = (props: Props) => {
                     </span>
                   </li>
                 </ul>
+                {succesFav && <AlertSave />}
               </div>
               <div className="container__overview">
                 <p>{detailTv?.overview}</p>
               </div>
-              {isLoggedIn && (
-                <button
-                  className="btn__save--element"
-                  onClick={handleIdElement}
+
+              <div className="d-flex">
+                {isLoggedIn && (
+                  <button
+                    className="btn__save--element"
+                    onClick={handleIdElement}
+                  >
+                    <FontAwesomeIcon
+                      icon={faBookmark}
+                      style={{ height: "10vh", width: "3vw" }}
+                      color="#ffc107"
+                    />
+                  </button>
+                )}
+                <select
+                  className="form-select selt__btn"
+                  name="seasons"
+                  onChange={handleSelectChange}
                 >
-                  <FontAwesomeIcon
-                    icon={faBookmark}
-                    style={{ height: "10vh", width: "3vw" }}
-                    color="#ffc107"
-                  />
-                </button>
-              )}
-              <select
-                className="form-select selt__btn"
-                name="seasons"
-                onChange={handleSelectChange}
-              >
-                <option>Seasons</option>
-                {seasons}
-              </select>
+                  <option>Seasons</option>
+                  {seasons}
+                </select>
+              </div>
             </div>
           </div>
         </div>

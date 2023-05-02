@@ -53,9 +53,6 @@ const Movie = () => {
           case "release":
             response = await getMovieYear(release);
             break;
-          case "title":
-            response = await getSearchElement(search);
-            break;
         }
 
         if (response !== undefined) {
@@ -101,16 +98,6 @@ const Movie = () => {
     setRelease(event.target.value);
     cases = "release";
   };
-
-  const handleSearchBytitle = _.debounce((event) => {
-    if (event.target.value !== "") {
-      setSearch(event.target.value);
-      cases = "title";
-    } else {
-      setSearch("");
-      cases = "";
-    }
-  }, 1000);
 
   const handlePage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(event.target.value);
