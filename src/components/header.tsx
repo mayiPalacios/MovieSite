@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import $ from "jquery";
 
 import useAuth from "lastHomework/hooks/useAuth";
@@ -19,12 +19,19 @@ const Header = () => {
     router.push("/favorite");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("sessionId");
+    localStorage.removeItem("account_id");
+    localStorage.removeItem("boolSessionId");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           My Movie Site
         </a>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -41,21 +48,30 @@ const Header = () => {
           id="navbarNav"
         >
           <ul className="navbar-nav mx-auto">
-            <li className="nav-item active">
+            <li className=" d-flex nav-item active">
               <a className="nav-link" href="/">
                 Home
               </a>
             </li>
+
+            <li className="nav-item active">
+              <a className="nav-link" href="/search">
+                Search
+              </a>
+            </li>
+
             <li className="nav-item">
               <a className="nav-link" href="/movie">
                 Movies
               </a>
             </li>
+
             <li className="nav-item">
               <a className="nav-link" href="/TV">
                 TV-SHOW
               </a>
             </li>
+
             {isLoggedIn && (
               <li className="nav-item">
                 <a className="nav-link" onClick={handleNavigation}>
@@ -67,8 +83,11 @@ const Header = () => {
 
           {isLoggedIn ? (
             <div className="navbar-nav">
-              <a className="nav-link" href="/login">
+              <a className="nav-link" onClick={handleLogout} href="/login">
                 Logout
+              </a>
+              <a className="nav-link" href="/meDetails">
+                About-me
               </a>
             </div>
           ) : (

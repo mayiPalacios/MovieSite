@@ -5,5 +5,5 @@ export interface Ifavorite {
 }
 
 export interface IsuccessFavorite {
-  success: true;
+  success: boolean;
 }
