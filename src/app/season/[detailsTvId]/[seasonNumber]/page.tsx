@@ -1,4 +1,3 @@
-"use client";
 import Footer from "lastHomework/components/footer";
 import Header from "lastHomework/components/header";
 

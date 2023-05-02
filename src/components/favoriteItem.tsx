@@ -4,31 +4,22 @@ import _ from "lodash";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
 import { getFavorite, removeFavorite } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 import {
   Ifavorite,
   IsuccessFavorite,
 } from "lastHomework/interfaces/InterfacesFavorite";
 
-let cases = "";
-
 const FavoriteItem = () => {
   const [movie, setMovie] = useState<Imovie[]>();
-  const [search, setSearch] = useState("");
+  const [idFav, SetidFav] = useState<number>();
   const [RemoveFav, setRemoveFav] = useState<boolean>(false);
-  const [certification, setCertification] = useState<string>();
-  const [genre, setGenre] = useState<string>("");
-  const [release, setRelease] = useState<string>("");
-  const router = useRouter();
 
   const {
     currentPage,
     setCurrentPage,
-    elementsPerPage,
     indexOfLastElement,
     indexOfFirtsElement,
     handleNextPage,
@@ -40,28 +31,29 @@ const FavoriteItem = () => {
   const currentElement =
     movie && movie.slice(indexOfFirtsElement, indexOfLastElement);
 
-  useEffect(() => {
-    const fetchMovie = async () => {
-      setIsLoading(true);
-      try {
-        let response = undefined;
-        const sessionId = localStorage.getItem("sessionId");
-        const accountId = localStorage.getItem("account_id");
+  const fetchMovie = async () => {
+    setIsLoading(true);
+    try {
+      let response = undefined;
+      const sessionId = localStorage.getItem("sessionId");
+      const accountId = localStorage.getItem("account_id");
 
-        response = await getFavorite(accountId!, sessionId!);
+      response = await getFavorite(accountId!, sessionId!);
 
-        if (response !== undefined) {
-          setMovie(response?.results);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        }
-        setIsLoading(false);
+      if (response !== undefined) {
+        setMovie(response?.results);
       }
-    };
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error);
+      }
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     fetchMovie();
-  }, [movie, certification, release, cases]);
+  }, [RemoveFav]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -79,10 +71,10 @@ const FavoriteItem = () => {
     );
   });
 
-  const handleIdElement = async (idMovie: number) => {
+  const handleIdElement = async () => {
     const addFavMovie: Ifavorite = {
       media_type: "movie",
-      media_id: idMovie!,
+      media_id: idFav!,
       favorite: false,
     };
     const sessionID = localStorage.getItem("sessionId");
@@ -93,17 +85,55 @@ const FavoriteItem = () => {
       sessionID!,
       addFavMovie
     );
-    setRemoveFav(request.success);
+    setRemoveFav(false);
+  };
+
+  const handleActiveAlert = (idMovie: number) => {
+    setRemoveFav(true);
+    SetidFav(idMovie);
+  };
+
+  const handleCancelRemove = () => {
+    setRemoveFav(false);
+  };
+
+  const AlertSave = () => {
+    return (
+      <div className="container__alert" style={{ marginTop: "82vh" }}>
+        <div className="alert__content" id="cookiesPopup">
+          <img
+            src="https://i.pinimg.com/564x/2e/ea/95/2eea95d8eb44b2cece4c79a6fea25573.jpg"
+            alt="cookies-img"
+          />
+          <p>Are you sure? you cant undo this action</p>
+          <div>
+            <button className="btn__accept" onClick={handleIdElement}>
+              Yes
+            </button>
+            <button className="btn__cancel" onClick={handleCancelRemove}>
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <div>
+      {RemoveFav && <AlertSave />}
       <div>
         <main
           className="container__movies"
           style={{ margin: "12vw", marginTop: "5vw" }}
         >
+          {isLoading && (
+            <div color="#fff">
+              <h1>loading...</h1>
+            </div>
+          )}
           <h2>MOVIES</h2>
+
           <section>
             <div className="row justify-content-center">
               {currentElement?.map((item) => (
@@ -123,6 +153,7 @@ const FavoriteItem = () => {
                         alt="..."
                       />
                     </a>
+
                     <div className="card-body">
                       <div className="top">
                         <h5 className="title">
@@ -136,7 +167,7 @@ const FavoriteItem = () => {
                         <span className="date">{item.release_date}</span>
                         <button
                           className="btn__save--element"
-                          onClick={() => handleIdElement(item.id)}
+                          onClick={() => handleActiveAlert(item.id)}
                         >
                           <FontAwesomeIcon
                             icon={faBookmark}

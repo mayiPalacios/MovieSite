@@ -1,7 +1,6 @@
 "use client";
 import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import usePagination from "lastHomework/hooks/usePagination";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "lastHomework/hooks/useAuth";
 import {
   getDetailMovie,
@@ -11,6 +10,8 @@ import {
 
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import PaginationDMovie from "./pagination/paginationDetailMovieCast";
 import PaginationDMovieCrew from "./pagination/paginationDetailMovieCrew";
@@ -18,7 +19,6 @@ import {
   Ifavorite,
   IsuccessFavorite,
 } from "lastHomework/interfaces/InterfacesFavorite";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface Props {
   detailsId: number;
@@ -32,7 +32,6 @@ const DetailsMovie = (props: Props) => {
   const {
     currentPage,
     setCurrentPage,
-    elementsPerPage,
     indexOfLastElement,
     indexOfFirtsElement,
     handleNextPage,

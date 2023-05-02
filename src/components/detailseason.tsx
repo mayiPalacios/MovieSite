@@ -1,4 +1,5 @@
 "use client";
+import usePagination from "lastHomework/hooks/usePagination";
 import { Iepisodies } from "lastHomework/interfaces/InterfacesSeason";
 import { getSeason } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
@@ -10,6 +11,18 @@ export interface Props {
 
 const Detailseason = (props: Props) => {
   const [episode, setEpisode] = useState<Iepisodies[]>();
+  const {
+    currentPage,
+    setCurrentPage,
+    indexOfLastElement,
+    indexOfFirtsElement,
+    handleNextPage,
+    handlePreviousPage,
+    pageNumbers,
+  } = usePagination(1, 4, episode?.length || 0);
+
+  const currentElement =
+    episode && episode.slice(indexOfFirtsElement, indexOfLastElement);
 
   useEffect(() => {
     const axiosDetail = async () => {
@@ -20,8 +33,24 @@ const Detailseason = (props: Props) => {
     axiosDetail();
   }, []);
 
+  const renderPageNumbers = pageNumbers.map((number) => {
+    return (
+      <button
+        className={`pagination_btn page-item number__btn ${
+          number === currentPage ? "activeBtn" : ""
+        }`}
+        key={number}
+        onClick={() => {
+          setCurrentPage(number);
+        }}
+      >
+        {number}
+      </button>
+    );
+  });
+
   return (
-    <div style={{ marginTop: "5rem", paddingBottom: "3rem" }}>
+    <div className="container__season">
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-8 mx-auto">
@@ -30,7 +59,27 @@ const Detailseason = (props: Props) => {
         </div>
       </div>
 
-      {episode?.map((item) => (
+      <div
+        className="container__pagination pagination"
+        style={{ marginLeft: "42px" }}
+      >
+        {currentPage > 1 && (
+          <button
+            className="pagination_btn word__btn"
+            onClick={handlePreviousPage}
+          >
+            Previous
+          </button>
+        )}
+        <div className="container__pagination--btn ">{renderPageNumbers}</div>
+        {currentPage < pageNumbers.length && (
+          <button className="pagination_btn word__btn" onClick={handleNextPage}>
+            Next
+          </button>
+        )}
+      </div>
+
+      {currentElement?.map((item) => (
         <section className="episodies__details--area">
           <div className="container__detail">
             <div className=" ">

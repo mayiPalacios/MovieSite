@@ -31,7 +31,6 @@ export default function Page({}) {
           src="https://themebeyond.com/html/movflx/img/bg/breadcrumb_bg.jpg"
           alt=""
         />
-        <h2 className="position-absolute text-center text-whites">Movies</h2>
       </section>
       <FavoriteItem />
       <FavoriteTv />

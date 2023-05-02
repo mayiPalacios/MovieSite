@@ -16,7 +16,9 @@ import {
   Isearch,
   IsearchResults,
 } from "lastHomework/interfaces/InterfacesSearch";
+import { Iperson } from "lastHomework/interfaces/InterfacesPerson";
 const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
+const URL = "https://api.themoviedb.org/3/";
 const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
 const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
 
@@ -189,5 +191,10 @@ export const removeFavorite = async (
     `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=2c2a51168da517ee7a6b21e5a0f35561&session_id=${sessionID}`,
     dataRequest
   );
+  return req.data;
+};
+
+export const detailPerson = async (idPerson: number) => {
+  const req = await get<Iperson>(`${URL}/person/${idPerson}?api_key=${apiKey}`);
   return req.data;
 };
