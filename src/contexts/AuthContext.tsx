@@ -1,6 +1,5 @@
 "use client";
 import { createContext, useState, useEffect, ReactNode } from "react";
-import { getSession } from "lastHomework/utils/fetchService";
 
 interface AuthContextData {
   isLoggedIn: boolean;

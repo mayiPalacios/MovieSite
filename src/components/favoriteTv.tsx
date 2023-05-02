@@ -19,16 +19,9 @@ import {
   IsuccessFavorite,
 } from "lastHomework/interfaces/InterfacesFavorite";
 
-let cases = "";
-
 const FavoriteTv = () => {
   const [tv, setTv] = useState<ItvShow[]>();
   const [RemoveFav, setRemoveFav] = useState<boolean>(false);
-  const [search, setSearch] = useState("");
-  const [certification, setCertification] = useState<string>();
-  const [genre, setGenre] = useState<string>("");
-  const [release, setRelease] = useState<string>("");
-  const router = useRouter();
 
   const {
     currentPage,
@@ -42,31 +35,34 @@ const FavoriteTv = () => {
   } = usePagination(1, 8, tv?.length || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
+  const [idFav, SetidFav] = useState<number>();
   const currentElement =
     tv && tv.slice(indexOfFirtsElement, indexOfLastElement);
 
-  useEffect(() => {
-    const fetchMovie = async () => {
-      setIsLoading(true);
-      try {
-        let response = undefined;
-        const sessionId = localStorage.getItem("sessionId");
-        const accountId = localStorage.getItem("account_id");
+  const fetchMovie = async () => {
+    setIsLoading(true);
+    try {
+      let response = undefined;
+      const sessionId = localStorage.getItem("sessionId");
+      const accountId = localStorage.getItem("account_id");
 
-        response = await getFavoriteTv(accountId!, sessionId!);
+      response = await getFavoriteTv(accountId!, sessionId!);
 
-        if (response !== undefined) {
-          setTv(response.results);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        }
-        setIsLoading(false);
+      if (response !== undefined) {
+        setTv(response.results);
       }
-    };
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error);
+      }
+      setIsLoading(false);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     fetchMovie();
-  }, [tv, certification, release, cases]);
+  }, [RemoveFav]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -84,10 +80,15 @@ const FavoriteTv = () => {
     );
   });
 
-  const handleIdElement = async (idTv: number) => {
+  const handleActiveAlert = (idTv: number) => {
+    setRemoveFav(true);
+    SetidFav(idTv);
+  };
+
+  const handleIdElement = async () => {
     const addFavMovie: Ifavorite = {
       media_type: "tv",
-      media_id: idTv!,
+      media_id: idFav!,
       favorite: false,
     };
     const sessionID = localStorage.getItem("sessionId");
@@ -98,12 +99,39 @@ const FavoriteTv = () => {
       sessionID!,
       addFavMovie
     );
-    setRemoveFav(request.success);
+    setRemoveFav(false);
+  };
+
+  const handleCancelRemove = () => {
+    setRemoveFav(false);
+  };
+
+  const AlertSave = () => {
+    return (
+      <div className="container__alert" style={{ marginTop: "180vh" }}>
+        <div className="alert__content" id="cookiesPopup">
+          <img
+            src="https://i.pinimg.com/564x/2e/ea/95/2eea95d8eb44b2cece4c79a6fea25573.jpg"
+            alt="cookies-img"
+          />
+          <p>Are you sure? you cant undo this action</p>
+          <div>
+            <button className="btn__accept" onClick={handleIdElement}>
+              Yes
+            </button>
+            <button className="btn__cancel" onClick={handleCancelRemove}>
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <div>
       <div>
+        {RemoveFav && <AlertSave />}
         <main
           className="container__movies"
           style={{ margin: "12vw", marginTop: "5vw" }}
@@ -141,7 +169,7 @@ const FavoriteTv = () => {
                         <span className="date">{item.first_air_date}</span>
                         <button
                           className="btn__save--element"
-                          onClick={() => handleIdElement(item.id)}
+                          onClick={() => handleActiveAlert(item.id)}
                         >
                           <FontAwesomeIcon
                             icon={faBookmark}
