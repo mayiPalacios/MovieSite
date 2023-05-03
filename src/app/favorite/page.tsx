@@ -10,14 +10,14 @@ import { useEffect } from "react";
 import FavoriteTv from "lastHomework/components/favoriteTv";
 
 export default function Page({}) {
-  const router = useRouter();
+  /*const router = useRouter();
   const isLoggedIn = useAuth();
 
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/");
     }
-  });
+  });*/
 
   return (
     <>
