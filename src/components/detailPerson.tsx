@@ -40,6 +40,9 @@ const DetailPerson = (props: Props) => {
               <div className="banner-meta">
                 <ul className=" d-flex flex-wrap gap-1">
                   <li className="popularity">
+                    <span>ID: {props.idPerson}</span>
+                  </li>
+                  <li className="popularity">
                     <span>Popularity: {person?.popularity}</span>
                   </li>
 

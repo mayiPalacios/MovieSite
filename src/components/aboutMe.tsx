@@ -40,6 +40,7 @@ const AboutMe = () => {
           </div>
           <div className="container__properties">
             <div className="movie-details-content">
+              <h6>Hello</h6>
               <h2>{me?.username}</h2>
               <div className="banner-meta"></div>
               <div className="container__overview">

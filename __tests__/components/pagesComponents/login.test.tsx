@@ -1,18 +1,15 @@
+import { AuthProvider } from "lastHomework/contexts/AuthContext";
 import React from "react";
 import { render } from "@testing-library/react";
-
-import { AuthProvider } from "lastHomework/contexts/AuthContext";
-
 import "@testing-library/jest-dom";
+import LoginPage from "lastHomework/components/login";
 
-import Home from "lastHomework/app/page";
-
-test("it render home", async () => {
+test("it render login", async () => {
   const { getByText } = render(
     <AuthProvider>
-      <Home />
+      <LoginPage />
     </AuthProvider>
   );
-  const title = getByText("MayiMovies");
+  const title = getByText("Sign In");
   expect(title).toBeVisible();
 });

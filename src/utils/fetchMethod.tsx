@@ -29,9 +29,7 @@ export const getMovies = async (page: string) => {
     );
 
     return request;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const getFilterByCertification = async (certification: string) => {
@@ -40,9 +38,7 @@ export const getFilterByCertification = async (certification: string) => {
       `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=${certification}`
     );
     return request;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const getMovieGenres = async (idGenre: string) => {
@@ -51,9 +47,7 @@ export const getMovieGenres = async (idGenre: string) => {
       `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${idGenre}`
     );
     return req;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const getMovieYear = async (year: string) => {
@@ -62,16 +56,14 @@ export const getMovieYear = async (year: string) => {
       `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${year}`
     );
     return req;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const getSearchElement = async (searchElement: string) => {
   const req = await get<IsearchResults>(
     `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${searchElement}`
   );
-  console.log(req);
+
   return req.data;
 };
 /* */

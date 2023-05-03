@@ -26,14 +26,12 @@ const SearchComponent = () => {
     const fetchSearch = async () => {
       try {
         const response = await getSearchElement(search);
-        console.log(response);
+
         setElement(response?.results);
       } catch (error) {}
     };
     fetchSearch();
   }, [search]);
-
-  console.log(element);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -62,10 +60,16 @@ const SearchComponent = () => {
   return (
     <main
       className="container__movies"
-      style={{ margin: "12vw", marginTop: "3vw" }}
+      style={{
+        margin: "12vw",
+        marginTop: "3vw",
+        minHeight: "59vh",
+        height: "auto",
+      }}
     >
       <div className="container__search">
         <div className="container__inpt mb-3" style={{ marginTop: "2vh" }}>
+          <h2>Search</h2>
           <input
             type="text"
             placeholder="search"

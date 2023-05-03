@@ -62,7 +62,6 @@ const DetailsTv = (props: Props) => {
   }, []);
 
   const handleIdElement = async () => {
-    console.log(detailTv?.id);
     const addFavMovie: Ifavorite = {
       media_type: "tv",
       media_id: detailTv?.id!,
@@ -77,7 +76,6 @@ const DetailsTv = (props: Props) => {
       addFavMovie
     );
     setSuccesFav(request.success);
-    console.log(succesFav);
   };
 
   const renderPageNumbers = pageNumbers.map((number) => {
