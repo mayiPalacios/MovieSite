@@ -68,7 +68,7 @@ const PaginationDTvCrew = (props: Props) => {
                 color: "#e4d804",
               }}
             >
-              <a href={`${item.id}`}>
+              <a href={`/detailPerson/${item.id}`}>
                 <img
                   src={
                     item.profile_path !== null
