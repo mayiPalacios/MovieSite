@@ -108,12 +108,7 @@ const LoginPage = () => {
                 Sign In
               </button>
             </div>
-            <div className="help">
-              <div>
-                <input value="true" type="checkbox" />
-                <label>Remember me</label>
-              </div>
-            </div>
+            <div className="help"></div>
           </form>
         </div>
       </div>
