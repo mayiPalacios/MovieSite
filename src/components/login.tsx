@@ -34,14 +34,12 @@ const LoginPage = () => {
     try {
       const requestTokenResponse: IrequestTokenResponse =
         await getRequestToken();
-      console.log(requestTokenResponse);
-      console.log(username);
+
       const validateUser: IvalidateToken = await validateToken(
         requestTokenResponse.request_token,
         username,
         password
       );
-      console.log(validateUser);
 
       if (validateUser.success) {
         const getSessionID: Isession = await getSession(
@@ -49,14 +47,13 @@ const LoginPage = () => {
           username,
           password
         );
-        console.log(getSessionID);
-        console.log("arriba");
+
         if (getSessionID.success == true) {
           localStorage.removeItem("sessionId");
           const account_id: IuserData = await getAccount_id(
             getSessionID.session_id
           );
-          console.log(account_id);
+
           localStorage.setItem("sessionId", getSessionID.session_id);
           localStorage.setItem("boolSessionId", "true");
           localStorage.setItem("account_id", account_id.id.toString());
@@ -78,12 +75,6 @@ const LoginPage = () => {
     event.preventDefault();
 
     handleSubmit();
-
-    /* console.log("Antes de la redirección");
-    if (typeof window !== "undefined") {
-      Router.push("/movie");
-    }
-    console.log("Después de la redirección");*/
   };
 
   return (

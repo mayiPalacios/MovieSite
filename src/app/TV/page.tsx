@@ -5,11 +5,11 @@ import Header from "lastHomework/components/header";
 
 const page = ({}) => {
   return (
-    <>
+    <div data-testid="tv-container">
       <Header />
       <TvShow />
       <Footer />
-    </>
+    </div>
   );
 };
 

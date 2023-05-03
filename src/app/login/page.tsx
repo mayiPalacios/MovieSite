@@ -15,10 +15,10 @@ const page = ({}) => {
     }
   });
   return (
-    <>
+    <div data-testid="login-container">
       <LoginPage />
       <Footer />
-    </>
+    </div>
   );
 };
 
