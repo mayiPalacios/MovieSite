@@ -45,10 +45,10 @@ const TvShow = () => {
             response = await getTvShow(page);
             break;
           case "release":
-            response = await getTvYear(release);
+            response = await getTvYear(release, page!);
             break;
           case "genre":
-            response = await getTvGenres(genre!);
+            response = await getTvGenres(genre!, page!);
             break;
 
           case "title":
@@ -67,7 +67,7 @@ const TvShow = () => {
       }
     };
     fetchTv();
-  }, [tv, certification, release, cases]);
+  }, [tv, release, cases]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -143,20 +143,6 @@ const TvShow = () => {
               onChange={handlePage}
             />
           </div>
-
-          <select
-            className="form-select selt__btn"
-            aria-label="Default select example"
-            onChange={handleCertification}
-          >
-            <option selected>Certification</option>
-            <option value="TV-Y">TV-Y</option>
-            <option value="TV-Y7">TV-Y7</option>
-            <option value="TV-G">TV-G</option>
-            <option value="TV-PG">TV-PG</option>
-            <option value="TV-MA">TV-MA</option>
-            <option value="TV-14">TV-14</option>
-          </select>
 
           <select
             className="form-select selt__btn"

@@ -29,28 +29,31 @@ export const getMovies = async (page: string) => {
   } catch (error) {}
 };
 
-export const getFilterByCertification = async (certification: string) => {
+export const getFilterByCertification = async (
+  certification: string,
+  page: string
+) => {
   try {
     const request = await get<ImovieResults>(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=${certification}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=${certification}&page=${page}`
     );
     return request;
   } catch (error) {}
 };
 
-export const getMovieGenres = async (idGenre: string) => {
+export const getMovieGenres = async (idGenre: string, page: string) => {
   try {
     const req = await get<ImovieResults>(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${idGenre}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${idGenre}&page=${page}`
     );
     return req;
   } catch (error) {}
 };
 
-export const getMovieYear = async (year: string) => {
+export const getMovieYear = async (year: string, page: string) => {
   try {
     const req = await get<ImovieResults>(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${year}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${year}&page=${page}`
     );
     return req;
   } catch (error) {}
@@ -73,16 +76,16 @@ export const getTvShow = async (page: string) => {
   return req;
 };
 
-export const getTvYear = async (year: string) => {
+export const getTvYear = async (year: string, page: string) => {
   const req = await get<ItvShowResults>(
-    `https://api.themoviedb.org/3/discover/tv?api_key=2c2a51168da517ee7a6b21e5a0f35561&first_air_date_year=${year}`
+    `https://api.themoviedb.org/3/discover/tv?api_key=2c2a51168da517ee7a6b21e5a0f35561&first_air_date_year=${year}&page=${page}`
   );
   return req;
 };
 
-export const getTvGenres = async (idGenre: string) => {
+export const getTvGenres = async (idGenre: string, page: string) => {
   const req = await get<ItvShowResults>(
-    `https://api.themoviedb.org/3/discover/tv?api_key=2c2a51168da517ee7a6b21e5a0f35561&with_genres=${idGenre}`
+    `https://api.themoviedb.org/3/discover/tv?api_key=2c2a51168da517ee7a6b21e5a0f35561&with_genres=${idGenre}&page=${page}`
   );
   return req;
 };
@@ -92,13 +95,6 @@ export const getSearchTv = async (searchElement: string) => {
     `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&query=${searchElement}`
   );
   return req;
-};
-
-export const getFilterByCertificationTv = async (certification: string) => {
-  const request = await get<ItvShowResults>(
-    `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&certification=${certification}`
-  );
-  return request;
 };
 
 export const getDetailMovie = async (idDetailMovie: number) => {

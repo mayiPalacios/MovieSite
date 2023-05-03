@@ -44,13 +44,13 @@ const Movie = () => {
           response = await getMovies(page);
           break;
         case "certification":
-          response = await getFilterByCertification(certification!);
+          response = await getFilterByCertification(certification!, page!);
           break;
         case "genre":
-          response = await getMovieGenres(genre!);
+          response = await getMovieGenres(genre!, page!);
           break;
         case "release":
-          response = await getMovieYear(release);
+          response = await getMovieYear(release, page!);
           break;
       }
 
@@ -67,7 +67,7 @@ const Movie = () => {
 
   useEffect(() => {
     fetchMovie();
-  }, [cases]);
+  }, [cases, page, certification, genre, release]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -102,6 +102,7 @@ const Movie = () => {
 
   const handlePage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(event.target.value);
+    cases = "";
   };
 
   return (
