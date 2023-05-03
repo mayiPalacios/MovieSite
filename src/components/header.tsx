@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import $ from "jquery";
-
 import useAuth from "lastHomework/hooks/useAuth";
-import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
@@ -15,9 +13,6 @@ const Header = () => {
   }, [showNav]);
 
   const isLoggedIn = useAuth();
-  /*  const handleNavigation = () => {
-    router.push("/favorite");
-  };*/
 
   const handleLogout = () => {
     localStorage.removeItem("sessionId");

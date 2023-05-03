@@ -1,7 +1,5 @@
 "use client";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Iperson } from "lastHomework/interfaces/InterfacesPerson";
 import { detailPerson } from "lastHomework/utils/fetchMethod";
@@ -13,12 +11,18 @@ export interface Props {
 
 const DetailPerson = (props: Props) => {
   const [person, setPerson] = useState<Iperson>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
   useEffect(() => {
     const fetchDetail = async () => {
+      setIsLoading(true);
       try {
         const response = await detailPerson(props.idPerson);
         setPerson(response);
-      } catch (error) {}
+      } catch (error) {
+        setError(error as Error);
+      }
+      setIsLoading(false);
     };
     fetchDetail();
   }, []);
@@ -34,6 +38,17 @@ const DetailPerson = (props: Props) => {
               />
             </div>
           </div>
+          {isLoading && (
+            <div color="#fff">
+              <h1>loading...</h1>
+            </div>
+          )}
+          {error && (
+            <div color="#fff">
+              <h1>{error.message}</h1>
+            </div>
+          )}
+
           <div className="container__properties">
             <div className="movie-details-content">
               <h2>{person?.name}</h2>
@@ -42,6 +57,7 @@ const DetailPerson = (props: Props) => {
                   <li className="popularity">
                     <span>ID: {props.idPerson}</span>
                   </li>
+
                   <li className="popularity">
                     <span>Popularity: {person?.popularity}</span>
                   </li>
@@ -54,6 +70,7 @@ const DetailPerson = (props: Props) => {
                   </li>
                 </ul>
               </div>
+
               <div className="container__overview">
                 <p>{person?.biography}</p>
               </div>

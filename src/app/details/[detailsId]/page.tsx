@@ -1,7 +1,4 @@
 "use client";
-
-import { FC } from "react";
-
 import Footer from "lastHomework/components/footer";
 import Header from "lastHomework/components/header";
 import DetailsMovie from "lastHomework/components/detailsMovie";
