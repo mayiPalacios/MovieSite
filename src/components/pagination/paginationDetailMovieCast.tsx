@@ -75,8 +75,8 @@ const PaginationDMovie = (props: Props) => {
                       ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
                       : "https://previews.123rf.com/images/9dreamstudio/9dreamstudio1802/9dreamstudio180202633/95768427-fondo-de-cine-ver-pel%C3%ADculas-palomitas-de-ma%C3%ADz-y-claqueta-sobre-fondo-amarillo-vista-superior-copia.jpg"
                   }
-                  style={item.profile_path === null ? { height: "500px" } : {}}
-                  className="card-img-top"
+                  style={{ height: "52vh" }}
+                  className="card-img-top img-fluid"
                   alt="..."
                 />
               </a>

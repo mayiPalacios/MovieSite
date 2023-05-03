@@ -1,18 +1,10 @@
 "use client";
 import usePagination from "lastHomework/hooks/usePagination";
 import _ from "lodash";
-import { Imovie } from "lastHomework/interfaces/InterfacesMovie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
-import {
-  getFavorite,
-  getFavoriteTv,
-  removeFavorite,
-} from "lastHomework/utils/fetchMethod";
+import { getFavoriteTv, removeFavorite } from "lastHomework/utils/fetchMethod";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Image from "next/image";
 import { ItvShow } from "lastHomework/interfaces/InterfacesTvShow";
 import {
   Ifavorite,
@@ -26,7 +18,6 @@ const FavoriteTv = () => {
   const {
     currentPage,
     setCurrentPage,
-    elementsPerPage,
     indexOfLastElement,
     indexOfFirtsElement,
     handleNextPage,
@@ -137,7 +128,19 @@ const FavoriteTv = () => {
           style={{ margin: "12vw", marginTop: "5vw" }}
         >
           <h2>TV SHOWS</h2>
+
           <section>
+            {isLoading && (
+              <div color="#fff">
+                <h1>loading...</h1>
+              </div>
+            )}
+            {error && (
+              <div color="#fff">
+                <h1>{error.message}</h1>
+              </div>
+            )}
+
             <div className="row justify-content-center">
               {currentElement?.map((item) => (
                 <div className="col-6 col-md-3 mb-3">
@@ -156,6 +159,7 @@ const FavoriteTv = () => {
                         alt="..."
                       />
                     </a>
+
                     <div className="card-body">
                       <div className="top">
                         <h5 className="title">

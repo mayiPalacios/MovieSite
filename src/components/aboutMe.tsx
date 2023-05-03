@@ -2,21 +2,25 @@
 import { useEffect, useState } from "react";
 import FavoriteItem from "./favoriteItem";
 import FavoriteTv from "./favoriteTv";
-import Footer from "./footer";
-import Header from "./header";
 import { IuserData } from "lastHomework/interfaces/Interfaceslog";
 import { getAccount_id } from "lastHomework/utils/fetchService";
 
 const AboutMe = () => {
   const [me, setMe] = useState<IuserData>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const fetchGetMe = async () => {
+      setIsLoading(true);
       try {
         const sessionId = localStorage.getItem("sessionId");
         const req = await getAccount_id(sessionId!);
         setMe(req);
-      } catch (error) {}
+      } catch (error) {
+        setError(error as Error);
+      }
+      setIsLoading(false);
     };
     fetchGetMe();
   }, []);
@@ -27,6 +31,16 @@ const AboutMe = () => {
         <div className="container__detail">
           <div className=" ">
             <div className="movie-details-img ">
+              {isLoading && (
+                <div color="#fff">
+                  <h1>loading...</h1>
+                </div>
+              )}
+              {error && (
+                <div color="#fff">
+                  <h1>{error.message}</h1>
+                </div>
+              )}
               <img
                 alt="profileImg"
                 src={
@@ -38,6 +52,7 @@ const AboutMe = () => {
               />
             </div>
           </div>
+
           <div className="container__properties">
             <div className="movie-details-content">
               <h6>Hello</h6>

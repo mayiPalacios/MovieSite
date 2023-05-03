@@ -28,6 +28,8 @@ const DetailsMovie = (props: Props) => {
   const [detailMovie, setDmovie] = useState<Imovie>();
   const [similar, setSimilar] = useState<Imovie[]>();
   const [succesFav, setSuccesFav] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
 
   const {
     currentPage,
@@ -44,13 +46,17 @@ const DetailsMovie = (props: Props) => {
 
   useEffect(() => {
     const fetchDetail = async () => {
+      setIsLoading(true);
       try {
         let response = await getDetailMovie(props.detailsId);
         let req = await getSimilarMovies(props.detailsId);
 
         setSimilar(req);
         setDmovie(response.data);
-      } catch (error) {}
+      } catch (error) {
+        setError(error as Error);
+      }
+      setIsLoading(false);
     };
     fetchDetail();
   }, []);
@@ -121,6 +127,16 @@ const DetailsMovie = (props: Props) => {
               />
             </div>
           </div>
+          {isLoading && (
+            <div color="#fff">
+              <h1>loading...</h1>
+            </div>
+          )}
+          {error && (
+            <div color="#fff">
+              <h1>{error.message}</h1>
+            </div>
+          )}
           <div className="container__properties">
             <div className="movie-details-content">
               <h2>{detailMovie?.title}</h2>
@@ -218,6 +234,7 @@ const DetailsMovie = (props: Props) => {
             </div>
           ))}
         </div>
+
         <div className="container__pagination pagination">
           {currentPage > 1 && (
             <button
