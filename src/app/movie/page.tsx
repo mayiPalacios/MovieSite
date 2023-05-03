@@ -7,11 +7,11 @@ import { AuthProvider } from "lastHomework/contexts/AuthContext";
 const page = ({}) => {
   return (
     <AuthProvider>
-      <>
+      <div data-testid="movie-container">
         <Header />
         <Movie />
         <Footer />
-      </>
+      </div>
     </AuthProvider>
   );
 };

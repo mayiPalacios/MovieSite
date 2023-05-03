@@ -32,6 +32,7 @@ export default function Page({}) {
           alt=""
         />
       </section>
+      <h2>Favorites</h2>
       <FavoriteItem />
       <FavoriteTv />
       <Footer />

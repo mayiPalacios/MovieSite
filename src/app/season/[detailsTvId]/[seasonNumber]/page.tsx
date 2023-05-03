@@ -11,10 +11,10 @@ export default function Page({
   let { detailsTvId, seasonNumber } = params;
 
   return (
-    <>
+    <div>
       <Header />
       <Detailseason detailsTvId={detailsTvId} seasonNumber={seasonNumber} />
       <Footer />
-    </>
+    </div>
   );
 }

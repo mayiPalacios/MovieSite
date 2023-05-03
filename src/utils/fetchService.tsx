@@ -16,7 +16,6 @@ const getRequestToken = async () => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -39,7 +38,6 @@ const getSession = async (
     );
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -62,7 +60,6 @@ export const validateToken = async (
     );
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -74,7 +71,6 @@ export const getAccount_id = async (sessionID: string) => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

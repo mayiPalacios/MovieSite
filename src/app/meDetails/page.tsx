@@ -4,11 +4,11 @@ import Header from "lastHomework/components/header";
 
 const page = ({}) => {
   return (
-    <>
+    <div data-testid="meDetails-container">
       <Header />
       <AboutMe />
       <Footer />
-    </>
+    </div>
   );
 };
 

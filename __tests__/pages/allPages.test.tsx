@@ -1,18 +1,15 @@
+import { AuthProvider } from "lastHomework/contexts/AuthContext";
 import React from "react";
 import { render } from "@testing-library/react";
-
-import { AuthProvider } from "lastHomework/contexts/AuthContext";
-
 import "@testing-library/jest-dom";
+import Page from "lastHomework/app/favorite/page";
 
-import Home from "lastHomework/app/page";
-
-test("it render home", async () => {
+test("it render Favorite Page", async () => {
   const { getByText } = render(
     <AuthProvider>
-      <Home />
+      <Page />
     </AuthProvider>
   );
-  const title = getByText("MayiMovies");
+  const title = getByText("Favorites");
   expect(title).toBeVisible();
 });
