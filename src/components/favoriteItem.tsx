@@ -25,7 +25,7 @@ const FavoriteItem = () => {
     handleNextPage,
     handlePreviousPage,
     pageNumbers,
-  } = usePagination(1, 8, movie?.length || 0);
+  } = usePagination(1, 4, movie?.length || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
   const currentElement =

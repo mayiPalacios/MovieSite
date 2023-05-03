@@ -32,7 +32,7 @@ const FavoriteTv = () => {
     handleNextPage,
     handlePreviousPage,
     pageNumbers,
-  } = usePagination(1, 8, tv?.length || 0);
+  } = usePagination(1, 4, tv?.length || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
   const [idFav, SetidFav] = useState<number>();
