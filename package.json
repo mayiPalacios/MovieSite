@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src --ext .tsx",
-    "test": "jest",
-    "coverage":"jest --coverage"
+    "test": "jest --coverage --watchAll",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -25,6 +25,7 @@
     "@types/react-redux": "^7.1.25",
     "@types/redux-persist": "^4.3.1",
     "axios": "^1.4.0",
+    "babel-jest": "^29.5.0",
     "bootstrap": "^5.2.3",
     "eslint-config-next": "13.3.0",
     "jquery": "^3.6.4",

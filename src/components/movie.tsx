@@ -34,39 +34,40 @@ const Movie = () => {
   const currentElement =
     movie && movie.slice(indexOfFirtsElement, indexOfLastElement);
 
-  useEffect(() => {
-    const fetchMovie = async () => {
-      setIsLoading(true);
-      try {
-        let response = undefined;
+  const fetchMovie = async () => {
+    setIsLoading(true);
+    try {
+      let response = undefined;
 
-        switch (cases) {
-          case "":
-            response = await getMovies(page);
-            break;
-          case "certification":
-            response = await getFilterByCertification(certification!);
-            break;
-          case "genre":
-            response = await getMovieGenres(genre!);
-            break;
-          case "release":
-            response = await getMovieYear(release);
-            break;
-        }
-
-        if (response !== undefined) {
-          setMovie(response?.data.results);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        }
-        setIsLoading(false);
+      switch (cases) {
+        case "":
+          response = await getMovies(page);
+          break;
+        case "certification":
+          response = await getFilterByCertification(certification!);
+          break;
+        case "genre":
+          response = await getMovieGenres(genre!);
+          break;
+        case "release":
+          response = await getMovieYear(release);
+          break;
       }
-    };
+
+      if (response !== undefined) {
+        setMovie(response?.data.results);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error);
+      }
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     fetchMovie();
-  }, [movie, certification, release, cases]);
+  }, [cases]);
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -121,6 +122,11 @@ const Movie = () => {
         className="container__movies"
         style={{ margin: "12vw", marginTop: "5vw" }}
       >
+        {isLoading && (
+          <div color="#fff">
+            <h1>loading...</h1>
+          </div>
+        )}
         <div className="container__filters flex-wrap d-flex justify-content-end align-items-center">
           <div>
             <input

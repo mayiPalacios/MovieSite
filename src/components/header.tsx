@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
-  const router = useRouter();
+
   useEffect(() => {
     $(".navbar-toggler").click(function () {
       setShowNav(!showNav);
@@ -15,9 +15,9 @@ const Header = () => {
   }, [showNav]);
 
   const isLoggedIn = useAuth();
-  const handleNavigation = () => {
+  /*  const handleNavigation = () => {
     router.push("/favorite");
-  };
+  };*/
 
   const handleLogout = () => {
     localStorage.removeItem("sessionId");
@@ -74,7 +74,10 @@ const Header = () => {
 
             {isLoggedIn && (
               <li className="nav-item">
-                <a className="nav-link" onClick={handleNavigation}>
+                <a
+                  className="nav-link"
+                  href="/favorite" /*onClick={handleNavigation}*/
+                >
                   Favorite
                 </a>
               </li>
