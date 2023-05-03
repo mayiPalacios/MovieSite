@@ -5,8 +5,7 @@ import {
   ItvShow,
   ItvShowResults,
 } from "lastHomework/interfaces/InterfacesTvShow";
-import { Props } from "lastHomework/components/detailsMovie";
-import { Icast, Icredits } from "lastHomework/interfaces/InterfacesCredits";
+import { Icredits } from "lastHomework/interfaces/InterfacesCredits";
 import {
   Ifavorite,
   IsuccessFavorite,
@@ -19,8 +18,6 @@ import {
 import { Iperson } from "lastHomework/interfaces/InterfacesPerson";
 const apiKey = "2c2a51168da517ee7a6b21e5a0f35561";
 const URL = "https://api.themoviedb.org/3/";
-const urlMovie = "https://api.themoviedb.org/3/discover/movie?api_key=";
-const urlTV = "https://api.themoviedb.org/3/tv/popular?api_key=";
 
 export const getMovies = async (page: string) => {
   try {

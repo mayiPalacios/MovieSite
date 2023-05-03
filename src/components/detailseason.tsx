@@ -11,6 +11,8 @@ export interface Props {
 
 const Detailseason = (props: Props) => {
   const [episode, setEpisode] = useState<Iepisodies[]>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
   const {
     currentPage,
     setCurrentPage,
@@ -26,8 +28,14 @@ const Detailseason = (props: Props) => {
 
   useEffect(() => {
     const axiosDetail = async () => {
-      const req = await getSeason(props.detailsTvId, props.seasonNumber);
-      setEpisode(req.episodes);
+      setIsLoading(true);
+      try {
+        const req = await getSeason(props.detailsTvId, props.seasonNumber);
+        setEpisode(req.episodes);
+      } catch (error) {
+        setError(error as Error);
+      }
+      setIsLoading(false);
     };
 
     axiosDetail();
@@ -78,7 +86,16 @@ const Detailseason = (props: Props) => {
           </button>
         )}
       </div>
-
+      {isLoading && (
+        <div color="#fff">
+          <h1>loading...</h1>
+        </div>
+      )}
+      {error && (
+        <div color="#fff">
+          <h1>{error.message}</h1>
+        </div>
+      )}
       {currentElement?.map((item) => (
         <section className="episodies__details--area">
           <div className="container__detail">
